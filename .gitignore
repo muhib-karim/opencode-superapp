@@ -1,0 +1,17 @@
+# generated project config (may contain machine-specific paths) — never commit
+opencode.json
+tui.json
+.env
+*.log
+test-*.json
+
+# deps / caches
+node_modules/
+.npm/
+.uv-cache/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

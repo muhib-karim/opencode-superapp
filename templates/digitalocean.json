@@ -1,0 +1,14 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "digitalocean": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.digitalocean.com/sse",
+      "headers": {
+        "Authorization": "Bearer {env:DIGITALOCEAN_API_TOKEN}"
+      },
+      "oauth": false
+    }
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "docker": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "uvx",
+        "mcp-server-docker"
+      ]
+    },
+    "kubernetes": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "mcp-server-kubernetes"
+      ],
+      "environment": {
+        "KUBECONFIG": "{env:KUBECONFIG}"
+      }
+    },
+    "terraform": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "hashicorp/terraform-mcp-server"
+      ]
+    },
+    "aws-docs": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "uvx",
+        "awslabs.aws-docs-mcp-server@latest"
+      ],
+      "environment": {
+        "AWS_REGION": "{env:AWS_REGION}"
+      }
+    },
+    "azure": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@azure/mcp@latest",
+        "server",
+        "start"
+      ]
+    },
+    "cloudflare": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@cloudflare/mcp-server-cloudflare@latest",
+        "init"
+      ],
+      "environment": {
+        "CLOUDFLARE_API_TOKEN": "{env:CLOUDFLARE_API_TOKEN}",
+        "CLOUDFLARE_ACCOUNT_ID": "{env:CLOUDFLARE_ACCOUNT_ID}"
+      }
+    },
+    "digitalocean": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.digitalocean.com/sse",
+      "headers": {
+        "Authorization": "Bearer {env:DIGITALOCEAN_API_TOKEN}"
+      },
+      "oauth": false
+    },
+    "grafana": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GRAFANA_URL",
+        "-e",
+        "GRAFANA_API_KEY",
+        "grafana/mcp-grafana:latest"
+      ],
+      "environment": {
+        "GRAFANA_URL": "{env:GRAFANA_URL}",
+        "GRAFANA_API_KEY": "{env:GRAFANA_API_KEY}"
+      }
+    },
+    "datadog": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.datadoghq.com/api/v2/mcp",
+      "headers": {
+        "DD-API-KEY": "{env:DD_API_KEY}",
+        "DD-APPLICATION-KEY": "{env:DD_APP_KEY}"
+      },
+      "oauth": false
+    },
+    "sentry": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.sentry.dev/mcp",
+      "oauth": {}
+    },
+    "github": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "environment": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "gitlab": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-gitlab"
+      ],
+      "environment": {
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "{env:GITLAB_PERSONAL_ACCESS_TOKEN}",
+        "GITLAB_API_URL": "{env:GITLAB_API_URL}"
+      }
+    }
+  }
+}

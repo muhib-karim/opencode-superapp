@@ -1,0 +1,18 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "postgres": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "{env:POSTGRES_CONNECTION_STRING}"
+      ],
+      "environment": {
+        "POSTGRES_CONNECTION_STRING": "{env:POSTGRES_CONNECTION_STRING}"
+      }
+    }
+  }
+}

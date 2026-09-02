@@ -1,0 +1,1240 @@
+[
+  {
+    "id": "filesystem",
+    "title": "Filesystem",
+    "description": "Secure scoped file read/write, search and directory listing. The safest default local MCP.",
+    "type": "local",
+    "category": "Core",
+    "stacks": [
+      "web-dev"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-filesystem",
+      "${ALLOWED_DIR}"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "filesystem_*",
+    "install": "npx -y @modelcontextprotocol/server-filesystem"
+  },
+  {
+    "id": "git",
+    "title": "Git",
+    "description": "Branch, diff, log, status and commit operations on a local repo.",
+    "type": "local",
+    "category": "Core",
+    "stacks": [
+      "web-dev",
+      "devops"
+    ],
+    "command": [
+      "uvx",
+      "mcp-server-git"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "git_*",
+    "install": "uvx mcp-server-git"
+  },
+  {
+    "id": "github",
+    "title": "GitHub",
+    "description": "Repos, issues, PRs, reviews, CI runs. Highest-token server \u2014 enable per-agent.",
+    "type": "local",
+    "category": "Dev",
+    "stacks": [
+      "web-dev",
+      "devops"
+    ],
+    "command": [
+      "docker",
+      "run",
+      "-i",
+      "--rm",
+      "-e",
+      "GITHUB_PERSONAL_ACCESS_TOKEN",
+      "ghcr.io/github/github-mcp-server"
+    ],
+    "environment": {
+      "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_PERSONAL_ACCESS_TOKEN}"
+    },
+    "envVars": [
+      {
+        "name": "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "required": true,
+        "desc": "ghp_ token with repo scope"
+      }
+    ],
+    "toolsPrefix": "github_*",
+    "install": "docker pull ghcr.io/github/github-mcp-server"
+  },
+  {
+    "id": "gitlab",
+    "title": "GitLab",
+    "description": "Projects, MRs, pipelines and issues for GitLab.com / self-hosted.",
+    "type": "local",
+    "category": "Dev",
+    "stacks": [
+      "web-dev",
+      "devops"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-gitlab"
+    ],
+    "environment": {
+      "GITLAB_PERSONAL_ACCESS_TOKEN": "{env:GITLAB_PERSONAL_ACCESS_TOKEN}",
+      "GITLAB_API_URL": "{env:GITLAB_API_URL}"
+    },
+    "envVars": [
+      {
+        "name": "GITLAB_PERSONAL_ACCESS_TOKEN",
+        "required": true,
+        "desc": "glpat- token"
+      },
+      {
+        "name": "GITLAB_API_URL",
+        "required": false,
+        "desc": "Default https://gitlab.com/api/v4"
+      }
+    ],
+    "toolsPrefix": "gitlab_*",
+    "install": "npx -y @modelcontextprotocol/server-gitlab"
+  },
+  {
+    "id": "postgres",
+    "title": "PostgreSQL",
+    "description": "Run read-only SQL, inspect schema, explain queries.",
+    "type": "local",
+    "category": "Data",
+    "stacks": [
+      "data-analysis"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-postgres",
+      "{env:POSTGRES_CONNECTION_STRING}"
+    ],
+    "environment": {
+      "POSTGRES_CONNECTION_STRING": "{env:POSTGRES_CONNECTION_STRING}"
+    },
+    "envVars": [
+      {
+        "name": "POSTGRES_CONNECTION_STRING",
+        "required": true,
+        "desc": "postgresql://user:pass@localhost:5432/db"
+      }
+    ],
+    "toolsPrefix": "postgres_*",
+    "install": "npx -y @modelcontextprotocol/server-postgres"
+  },
+  {
+    "id": "sqlite",
+    "title": "SQLite",
+    "description": "Local .sqlite/.db querying without a server. Great for prototypes.",
+    "type": "local",
+    "category": "Data",
+    "stacks": [
+      "data-analysis"
+    ],
+    "command": [
+      "uvx",
+      "mcp-server-sqlite",
+      "--db-path",
+      "{env:SQLITE_DB_PATH}"
+    ],
+    "environment": {
+      "SQLITE_DB_PATH": "{env:SQLITE_DB_PATH}"
+    },
+    "envVars": [
+      {
+        "name": "SQLITE_DB_PATH",
+        "required": true,
+        "desc": "Absolute path to .sqlite file"
+      }
+    ],
+    "toolsPrefix": "sqlite_*",
+    "install": "uvx mcp-server-sqlite"
+  },
+  {
+    "id": "mysql",
+    "title": "MySQL / MariaDB",
+    "description": "Schema inspection and SELECT queries against MySQL.",
+    "type": "local",
+    "category": "Data",
+    "stacks": [
+      "data-analysis"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@benborla29/mcp-server-mysql"
+    ],
+    "environment": {
+      "MYSQL_HOST": "{env:MYSQL_HOST}",
+      "MYSQL_PORT": "{env:MYSQL_PORT}",
+      "MYSQL_USER": "{env:MYSQL_USER}",
+      "MYSQL_PASSWORD": "{env:MYSQL_PASSWORD}",
+      "MYSQL_DATABASE": "{env:MYSQL_DATABASE}"
+    },
+    "envVars": [
+      {
+        "name": "MYSQL_HOST",
+        "required": true,
+        "desc": "e.g. 127.0.0.1"
+      },
+      {
+        "name": "MYSQL_USER",
+        "required": true,
+        "desc": "db user"
+      },
+      {
+        "name": "MYSQL_PASSWORD",
+        "required": true,
+        "desc": "db password"
+      },
+      {
+        "name": "MYSQL_DATABASE",
+        "required": true,
+        "desc": "database name"
+      },
+      {
+        "name": "MYSQL_PORT",
+        "required": false,
+        "desc": "default 3306"
+      }
+    ],
+    "toolsPrefix": "mysql_*",
+    "install": "npx -y @benborla29/mcp-server-mysql"
+  },
+  {
+    "id": "mongodb",
+    "title": "MongoDB",
+    "description": "List collections, run aggregations, sample documents.",
+    "type": "local",
+    "category": "Data",
+    "stacks": [
+      "data-analysis"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "mongodb-mcp-server",
+      "--connectionString",
+      "{env:MONGODB_URI}"
+    ],
+    "environment": {
+      "MONGODB_URI": "{env:MONGODB_URI}"
+    },
+    "envVars": [
+      {
+        "name": "MONGODB_URI",
+        "required": true,
+        "desc": "mongodb:// or mongodb+srv:// URI"
+      }
+    ],
+    "toolsPrefix": "mongodb_*",
+    "install": "npx -y mongodb-mcp-server"
+  },
+  {
+    "id": "redis",
+    "title": "Redis",
+    "description": "Inspect keys, read values, check memory and slowlog.",
+    "type": "local",
+    "category": "Data",
+    "stacks": [
+      "data-analysis",
+      "devops"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@gongrzhe/server-redis-mcp",
+      "redis://localhost:6379"
+    ],
+    "environment": {
+      "REDIS_URL": "{env:REDIS_URL}"
+    },
+    "envVars": [
+      {
+        "name": "REDIS_URL",
+        "required": false,
+        "desc": "default redis://localhost:6379"
+      }
+    ],
+    "toolsPrefix": "redis_*",
+    "install": "npx -y @gongrzhe/server-redis-mcp"
+  },
+  {
+    "id": "supabase",
+    "title": "Supabase",
+    "description": "Manage Postgres, auth, storage and edge functions via Supabase API.",
+    "type": "local",
+    "category": "Data",
+    "stacks": [
+      "data-analysis",
+      "web-dev"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@supabase/mcp-server-supabase@latest",
+      "--read-only",
+      "--project-ref={env:SUPABASE_PROJECT_REF}"
+    ],
+    "environment": {
+      "SUPABASE_ACCESS_TOKEN": "{env:SUPABASE_ACCESS_TOKEN}"
+    },
+    "envVars": [
+      {
+        "name": "SUPABASE_ACCESS_TOKEN",
+        "required": true,
+        "desc": "sbp_ personal access token"
+      },
+      {
+        "name": "SUPABASE_PROJECT_REF",
+        "required": true,
+        "desc": "project ref from dashboard URL"
+      }
+    ],
+    "toolsPrefix": "supabase_*",
+    "install": "npx -y @supabase/mcp-server-supabase@latest"
+  },
+  {
+    "id": "prisma",
+    "title": "Prisma Postgres",
+    "description": "Prisma-managed Postgres: migrate, query and inspect via Prisma MCP.",
+    "type": "local",
+    "category": "Data",
+    "stacks": [
+      "data-analysis",
+      "web-dev"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@prisma/mcp-server"
+    ],
+    "environment": {
+      "DATABASE_URL": "{env:DATABASE_URL}"
+    },
+    "envVars": [
+      {
+        "name": "DATABASE_URL",
+        "required": true,
+        "desc": "Prisma connection string"
+      }
+    ],
+    "toolsPrefix": "prisma_*",
+    "install": "npx -y @prisma/mcp-server"
+  },
+  {
+    "id": "neon",
+    "title": "Neon Postgres",
+    "description": "Serverless Postgres branches, branching and SQL via Neon remote MCP.",
+    "type": "remote",
+    "category": "Data",
+    "stacks": [
+      "data-analysis",
+      "devops"
+    ],
+    "url": "https://mcp.neon.tech/sse",
+    "headers": {
+      "Authorization": "Bearer {env:NEON_API_KEY}"
+    },
+    "oauth": false,
+    "envVars": [
+      {
+        "name": "NEON_API_KEY",
+        "required": true,
+        "desc": "Neon API key"
+      }
+    ],
+    "toolsPrefix": "neon_*",
+    "install": "(remote \u2014 no install)"
+  },
+  {
+    "id": "playwright",
+    "title": "Playwright",
+    "description": "Headless browser automation: navigate, click, fill, screenshot, a11y snapshot.",
+    "type": "local",
+    "category": "Test",
+    "stacks": [
+      "web-dev",
+      "testing"
+    ],
+    "command": [
+      "npx",
+      "@playwright/mcp@latest"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "playwright_*",
+    "install": "npx @playwright/mcp@latest --install"
+  },
+  {
+    "id": "puppeteer",
+    "title": "Puppeteer",
+    "description": "Lightweight Chrome automation fallback when Playwright is too heavy.",
+    "type": "local",
+    "category": "Test",
+    "stacks": [
+      "web-dev",
+      "testing"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-puppeteer"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "puppeteer_*",
+    "install": "npx -y @modelcontextprotocol/server-puppeteer"
+  },
+  {
+    "id": "chrome-devtools",
+    "title": "Chrome DevTools",
+    "description": "Official Chrome DevTools MCP: performance traces, network, console.",
+    "type": "local",
+    "category": "Test",
+    "stacks": [
+      "web-dev",
+      "testing"
+    ],
+    "command": [
+      "npx",
+      "chrome-devtools-mcp@latest"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "devtools_*",
+    "install": "npx chrome-devtools-mcp@latest"
+  },
+  {
+    "id": "sentry",
+    "title": "Sentry",
+    "description": "Query issues, releases, traces. OAuth remote \u2014 `opencode mcp auth sentry`.",
+    "type": "remote",
+    "category": "Observe",
+    "stacks": [
+      "devops"
+    ],
+    "url": "https://mcp.sentry.dev/mcp",
+    "oauth": {},
+    "envVars": [],
+    "toolsPrefix": "sentry_*",
+    "install": "(remote \u2014 no install; run `opencode mcp auth sentry`)"
+  },
+  {
+    "id": "context7",
+    "title": "Context7",
+    "description": "Up-to-date library docs lookup. Add `use context7` to prompts.",
+    "type": "remote",
+    "category": "Docs",
+    "stacks": [
+      "web-dev",
+      "ai-search"
+    ],
+    "url": "https://mcp.context7.com/mcp",
+    "headers": {
+      "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+    },
+    "oauth": false,
+    "envVars": [
+      {
+        "name": "CONTEXT7_API_KEY",
+        "required": false,
+        "desc": "Optional, higher rate limits"
+      }
+    ],
+    "toolsPrefix": "context7_*",
+    "install": "(remote \u2014 no install)"
+  },
+  {
+    "id": "gh_grep",
+    "title": "Grep by Vercel",
+    "description": "Regex search across millions of public GitHub repos.",
+    "type": "remote",
+    "category": "Docs",
+    "stacks": [
+      "web-dev",
+      "ai-search"
+    ],
+    "url": "https://mcp.grep.app",
+    "oauth": false,
+    "envVars": [],
+    "toolsPrefix": "gh_grep_*",
+    "install": "(remote \u2014 no install)"
+  },
+  {
+    "id": "brave-search",
+    "title": "Brave Search",
+    "description": "Web + local search with rate-limit friendly API.",
+    "type": "local",
+    "category": "Search",
+    "stacks": [
+      "ai-search"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-brave-search"
+    ],
+    "environment": {
+      "BRAVE_API_KEY": "{env:BRAVE_API_KEY}"
+    },
+    "envVars": [
+      {
+        "name": "BRAVE_API_KEY",
+        "required": true,
+        "desc": "Brave Search API key"
+      }
+    ],
+    "toolsPrefix": "brave_*",
+    "install": "npx -y @modelcontextprotocol/server-brave-search"
+  },
+  {
+    "id": "tavily",
+    "title": "Tavily Search",
+    "description": "Answer-engine search + extract, tuned for RAG.",
+    "type": "local",
+    "category": "Search",
+    "stacks": [
+      "ai-search"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "tavily-mcp@latest"
+    ],
+    "environment": {
+      "TAVILY_API_KEY": "{env:TAVILY_API_KEY}"
+    },
+    "envVars": [
+      {
+        "name": "TAVILY_API_KEY",
+        "required": true,
+        "desc": "tvly- key"
+      }
+    ],
+    "toolsPrefix": "tavily_*",
+    "install": "npx -y tavily-mcp@latest"
+  },
+  {
+    "id": "exa",
+    "title": "Exa Search",
+    "description": "Neural web search + crawl. Remote SSE with API-key header.",
+    "type": "remote",
+    "category": "Search",
+    "stacks": [
+      "ai-search"
+    ],
+    "url": "https://mcp.exa.ai/sse",
+    "headers": {
+      "Authorization": "Bearer {env:EXA_API_KEY}"
+    },
+    "oauth": false,
+    "envVars": [
+      {
+        "name": "EXA_API_KEY",
+        "required": true,
+        "desc": "exa API key"
+      }
+    ],
+    "toolsPrefix": "exa_*",
+    "install": "(remote \u2014 no install)"
+  },
+  {
+    "id": "firecrawl",
+    "title": "Firecrawl",
+    "description": "Scrape, crawl and extract JS-rendered pages to markdown.",
+    "type": "remote",
+    "category": "Search",
+    "stacks": [
+      "ai-search",
+      "testing"
+    ],
+    "url": "https://mcp.firecrawl.dev/mcp",
+    "headers": {
+      "Authorization": "Bearer {env:FIRECRAWL_API_KEY}"
+    },
+    "oauth": false,
+    "envVars": [
+      {
+        "name": "FIRECRAWL_API_KEY",
+        "required": true,
+        "desc": "fc- key"
+      }
+    ],
+    "toolsPrefix": "firecrawl_*",
+    "install": "(remote \u2014 no install)"
+  },
+  {
+    "id": "fetch",
+    "title": "Fetch",
+    "description": "Minimal URL -> markdown fetcher. No key, tiny context footprint.",
+    "type": "local",
+    "category": "Core",
+    "stacks": [
+      "web-dev",
+      "ai-search"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-fetch"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "fetch_*",
+    "install": "npx -y @modelcontextprotocol/server-fetch"
+  },
+  {
+    "id": "memory",
+    "title": "Memory (KG)",
+    "description": "Persistent knowledge-graph memory across sessions.",
+    "type": "local",
+    "category": "AI",
+    "stacks": [
+      "data-analysis",
+      "ai-search"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-memory"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "memory_*",
+    "install": "npx -y @modelcontextprotocol/server-memory"
+  },
+  {
+    "id": "sequential-thinking",
+    "title": "Sequential Thinking",
+    "description": "Structured step-by-step reasoning tool. Zero config.",
+    "type": "local",
+    "category": "AI",
+    "stacks": [
+      "data-analysis",
+      "ai-search"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-sequential-thinking"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "thinking_*",
+    "install": "npx -y @modelcontextprotocol/server-sequential-thinking"
+  },
+  {
+    "id": "time",
+    "title": "Time",
+    "description": "Timezone-aware now/convert. Fixes 'what time is it' bugs.",
+    "type": "local",
+    "category": "Core",
+    "stacks": [
+      "productivity",
+      "ai-search"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-time"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "time_*",
+    "install": "npx -y @modelcontextprotocol/server-time"
+  },
+  {
+    "id": "everything",
+    "title": "Everything (test)",
+    "description": "Reference/test server (add, echo, prompts). Use to debug MCP wiring.",
+    "type": "local",
+    "category": "Core",
+    "stacks": [
+      "testing"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-everything"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "everything_*",
+    "install": "npx -y @modelcontextprotocol/server-everything"
+  },
+  {
+    "id": "slack",
+    "title": "Slack",
+    "description": "Read/post messages, threads, channels.",
+    "type": "local",
+    "category": "Comms",
+    "stacks": [
+      "productivity"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@corail-research/slack-mcp-server"
+    ],
+    "environment": {
+      "SLACK_BOT_TOKEN": "{env:SLACK_BOT_TOKEN}",
+      "SLACK_TEAM_ID": "{env:SLACK_TEAM_ID}"
+    },
+    "envVars": [
+      {
+        "name": "SLACK_BOT_TOKEN",
+        "required": true,
+        "desc": "xoxb- bot token"
+      },
+      {
+        "name": "SLACK_TEAM_ID",
+        "required": true,
+        "desc": "T0XXXXXXX"
+      }
+    ],
+    "toolsPrefix": "slack_*",
+    "install": "npx -y @corail-research/slack-mcp-server"
+  },
+  {
+    "id": "discord",
+    "title": "Discord",
+    "description": "Read/send channel messages, threads.",
+    "type": "local",
+    "category": "Comms",
+    "stacks": [
+      "productivity"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "mcp-discord"
+    ],
+    "environment": {
+      "DISCORD_TOKEN": "{env:DISCORD_TOKEN}"
+    },
+    "envVars": [
+      {
+        "name": "DISCORD_TOKEN",
+        "required": true,
+        "desc": "bot token with Message Content intent"
+      }
+    ],
+    "toolsPrefix": "discord_*",
+    "install": "npx -y mcp-discord"
+  },
+  {
+    "id": "linear",
+    "title": "Linear",
+    "description": "Issues, cycles, projects. OAuth remote.",
+    "type": "remote",
+    "category": "PM",
+    "stacks": [
+      "productivity"
+    ],
+    "url": "https://mcp.linear.app/sse",
+    "oauth": {},
+    "envVars": [],
+    "toolsPrefix": "linear_*",
+    "install": "(remote \u2014 `opencode mcp auth linear`)"
+  },
+  {
+    "id": "notion",
+    "title": "Notion",
+    "description": "Pages, databases, comments via official Notion MCP.",
+    "type": "local",
+    "category": "PM",
+    "stacks": [
+      "productivity"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@notionhq/notion-mcp-server"
+    ],
+    "environment": {
+      "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer {env:NOTION_API_KEY}\"}"
+    },
+    "envVars": [
+      {
+        "name": "NOTION_API_KEY",
+        "required": true,
+        "desc": "ntn_ integration token; share pages with the integration"
+      }
+    ],
+    "toolsPrefix": "notion_*",
+    "install": "npx -y @notionhq/notion-mcp-server"
+  },
+  {
+    "id": "figma",
+    "title": "Figma",
+    "description": "Read designs, variables, components (Dev Mode). OAuth remote.",
+    "type": "remote",
+    "category": "Design",
+    "stacks": [
+      "web-dev"
+    ],
+    "url": "https://mcp.figma.com/mcp",
+    "oauth": {},
+    "envVars": [],
+    "toolsPrefix": "figma_*",
+    "install": "(remote \u2014 `opencode mcp auth figma`)"
+  },
+  {
+    "id": "stripe",
+    "title": "Stripe",
+    "description": "Products, prices, invoices, payment links (test-mode safe).",
+    "type": "local",
+    "category": "Payments",
+    "stacks": [
+      "web-dev"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@stripe/mcp-server",
+      "--tools=all"
+    ],
+    "environment": {
+      "STRIPE_SECRET_KEY": "{env:STRIPE_SECRET_KEY}"
+    },
+    "envVars": [
+      {
+        "name": "STRIPE_SECRET_KEY",
+        "required": true,
+        "desc": "sk_test_... (never commit live keys)"
+      }
+    ],
+    "toolsPrefix": "stripe_*",
+    "install": "npx -y @stripe/mcp-server"
+  },
+  {
+    "id": "vercel",
+    "title": "Vercel",
+    "description": "Deployments, domains, logs. OAuth remote.",
+    "type": "remote",
+    "category": "Cloud",
+    "stacks": [
+      "web-dev",
+      "devops"
+    ],
+    "url": "https://mcp.vercel.com",
+    "oauth": {},
+    "envVars": [],
+    "toolsPrefix": "vercel_*",
+    "install": "(remote \u2014 `opencode mcp auth vercel`)"
+  },
+  {
+    "id": "netlify",
+    "title": "Netlify",
+    "description": "Sites, deploys, env vars, forms.",
+    "type": "local",
+    "category": "Cloud",
+    "stacks": [
+      "web-dev",
+      "devops"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@netlify/mcp-server@latest"
+    ],
+    "environment": {
+      "NETLIFY_AUTH_TOKEN": "{env:NETLIFY_AUTH_TOKEN}"
+    },
+    "envVars": [
+      {
+        "name": "NETLIFY_AUTH_TOKEN",
+        "required": true,
+        "desc": "nfp_ personal access token"
+      }
+    ],
+    "toolsPrefix": "netlify_*",
+    "install": "npx -y @netlify/mcp-server@latest"
+  },
+  {
+    "id": "cloudflare",
+    "title": "Cloudflare",
+    "description": "Workers, KV, R2, DNS, Pages bindings.",
+    "type": "local",
+    "category": "Cloud",
+    "stacks": [
+      "web-dev",
+      "devops"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@cloudflare/mcp-server-cloudflare@latest",
+      "init"
+    ],
+    "environment": {
+      "CLOUDFLARE_API_TOKEN": "{env:CLOUDFLARE_API_TOKEN}",
+      "CLOUDFLARE_ACCOUNT_ID": "{env:CLOUDFLARE_ACCOUNT_ID}"
+    },
+    "envVars": [
+      {
+        "name": "CLOUDFLARE_API_TOKEN",
+        "required": true,
+        "desc": "scoped API token"
+      },
+      {
+        "name": "CLOUDFLARE_ACCOUNT_ID",
+        "required": true,
+        "desc": "account id"
+      }
+    ],
+    "toolsPrefix": "cloudflare_*",
+    "install": "npx -y @cloudflare/mcp-server-cloudflare@latest init"
+  },
+  {
+    "id": "aws-docs",
+    "title": "AWS Docs",
+    "description": "Official AWS documentation + CFN guidance (awslabs, uvx).",
+    "type": "local",
+    "category": "Cloud",
+    "stacks": [
+      "devops"
+    ],
+    "command": [
+      "uvx",
+      "awslabs.aws-docs-mcp-server@latest"
+    ],
+    "environment": {
+      "AWS_REGION": "{env:AWS_REGION}"
+    },
+    "envVars": [
+      {
+        "name": "AWS_REGION",
+        "required": false,
+        "desc": "default us-east-1"
+      }
+    ],
+    "toolsPrefix": "aws_*",
+    "install": "uvx awslabs.aws-docs-mcp-server@latest"
+  },
+  {
+    "id": "azure",
+    "title": "Azure",
+    "description": "Official Azure MCP: azd, resources, logs.",
+    "type": "local",
+    "category": "Cloud",
+    "stacks": [
+      "devops"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@azure/mcp@latest",
+      "server",
+      "start"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "azure_*",
+    "install": "npx -y @azure/mcp@latest server start"
+  },
+  {
+    "id": "docker",
+    "title": "Docker",
+    "description": "Containers, images, volumes, compose (socket-mounted).",
+    "type": "local",
+    "category": "DevOps",
+    "stacks": [
+      "devops"
+    ],
+    "command": [
+      "uvx",
+      "mcp-server-docker"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "docker_*",
+    "install": "uvx mcp-server-docker"
+  },
+  {
+    "id": "kubernetes",
+    "title": "Kubernetes",
+    "description": "Pods, deploys, logs, exec via current kubeconfig.",
+    "type": "local",
+    "category": "DevOps",
+    "stacks": [
+      "devops"
+    ],
+    "command": [
+      "npx",
+      "mcp-server-kubernetes"
+    ],
+    "environment": {
+      "KUBECONFIG": "{env:KUBECONFIG}"
+    },
+    "envVars": [
+      {
+        "name": "KUBECONFIG",
+        "required": false,
+        "desc": "defaults to ~/.kube/config"
+      }
+    ],
+    "toolsPrefix": "k8s_*",
+    "install": "npx mcp-server-kubernetes"
+  },
+  {
+    "id": "terraform",
+    "title": "Terraform",
+    "description": "Official HashiCorp registry docs + provider lookup (Docker).",
+    "type": "local",
+    "category": "DevOps",
+    "stacks": [
+      "devops"
+    ],
+    "command": [
+      "docker",
+      "run",
+      "-i",
+      "--rm",
+      "hashicorp/terraform-mcp-server"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "terraform_*",
+    "install": "docker pull hashicorp/terraform-mcp-server"
+  },
+  {
+    "id": "digitalocean",
+    "title": "DigitalOcean",
+    "description": "Droplets, apps, databases via Gradient remote MCP.",
+    "type": "remote",
+    "category": "Cloud",
+    "stacks": [
+      "devops"
+    ],
+    "url": "https://mcp.digitalocean.com/sse",
+    "headers": {
+      "Authorization": "Bearer {env:DIGITALOCEAN_API_TOKEN}"
+    },
+    "oauth": false,
+    "envVars": [
+      {
+        "name": "DIGITALOCEAN_API_TOKEN",
+        "required": true,
+        "desc": "dop_v1_ token"
+      }
+    ],
+    "toolsPrefix": "do_*",
+    "install": "(remote \u2014 no install)"
+  },
+  {
+    "id": "grafana",
+    "title": "Grafana",
+    "description": "Dashboards, datasources, incidents, alerts.",
+    "type": "local",
+    "category": "Observe",
+    "stacks": [
+      "devops"
+    ],
+    "command": [
+      "docker",
+      "run",
+      "-i",
+      "--rm",
+      "-e",
+      "GRAFANA_URL",
+      "-e",
+      "GRAFANA_API_KEY",
+      "grafana/mcp-grafana:latest"
+    ],
+    "environment": {
+      "GRAFANA_URL": "{env:GRAFANA_URL}",
+      "GRAFANA_API_KEY": "{env:GRAFANA_API_KEY}"
+    },
+    "envVars": [
+      {
+        "name": "GRAFANA_URL",
+        "required": true,
+        "desc": "https://your-stack.grafana.net"
+      },
+      {
+        "name": "GRAFANA_API_KEY",
+        "required": true,
+        "desc": "service account token"
+      }
+    ],
+    "toolsPrefix": "grafana_*",
+    "install": "docker pull grafana/mcp-grafana:latest"
+  },
+  {
+    "id": "datadog",
+    "title": "Datadog",
+    "description": "Monitors, logs, APM lookup (API-key header, OAuth disabled).",
+    "type": "remote",
+    "category": "Observe",
+    "stacks": [
+      "devops"
+    ],
+    "url": "https://mcp.datadoghq.com/api/v2/mcp",
+    "headers": {
+      "DD-API-KEY": "{env:DD_API_KEY}",
+      "DD-APPLICATION-KEY": "{env:DD_APP_KEY}"
+    },
+    "oauth": false,
+    "envVars": [
+      {
+        "name": "DD_API_KEY",
+        "required": true,
+        "desc": "Datadog API key"
+      },
+      {
+        "name": "DD_APP_KEY",
+        "required": true,
+        "desc": "Datadog application key"
+      }
+    ],
+    "toolsPrefix": "datadog_*",
+    "install": "(remote \u2014 no install)"
+  },
+  {
+    "id": "atlassian-jira",
+    "title": "Jira",
+    "description": "Atlassian Rovo MCP: search/create/transition Jira issues (OAuth).",
+    "type": "remote",
+    "category": "PM",
+    "stacks": [
+      "productivity"
+    ],
+    "url": "https://mcp.atlassian.com/v1/sse",
+    "oauth": {},
+    "envVars": [],
+    "toolsPrefix": "jira_*",
+    "install": "(remote \u2014 `opencode mcp auth atlassian-jira`)"
+  },
+  {
+    "id": "atlassian-confluence",
+    "title": "Confluence",
+    "description": "Same Atlassian host as Jira; search/read/update pages (OAuth).",
+    "type": "remote",
+    "category": "PM",
+    "stacks": [
+      "productivity"
+    ],
+    "url": "https://mcp.atlassian.com/v1/sse",
+    "oauth": {},
+    "envVars": [],
+    "toolsPrefix": "confluence_*",
+    "install": "(remote \u2014 `opencode mcp auth atlassian-confluence`)"
+  },
+  {
+    "id": "google-drive",
+    "title": "Google Drive",
+    "description": "Docs, sheets, drive search via OAuth credentials file.",
+    "type": "local",
+    "category": "PM",
+    "stacks": [
+      "productivity"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-gdrive"
+    ],
+    "environment": {
+      "GOOGLE_CLIENT_ID": "{env:GOOGLE_CLIENT_ID}",
+      "GOOGLE_CLIENT_SECRET": "{env:GOOGLE_CLIENT_SECRET}",
+      "GDRIVE_CREDS_PATH": "{env:GDRIVE_CREDS_PATH}"
+    },
+    "envVars": [
+      {
+        "name": "GOOGLE_CLIENT_ID",
+        "required": true,
+        "desc": "OAuth client id"
+      },
+      {
+        "name": "GOOGLE_CLIENT_SECRET",
+        "required": true,
+        "desc": "OAuth client secret"
+      },
+      {
+        "name": "GDRIVE_CREDS_PATH",
+        "required": true,
+        "desc": "path to .gdrive-credentials.json"
+      }
+    ],
+    "toolsPrefix": "gdrive_*",
+    "install": "npx -y @modelcontextprotocol/server-gdrive"
+  },
+  {
+    "id": "obsidian",
+    "title": "Obsidian",
+    "description": "Read/append markdown notes in a vault directory.",
+    "type": "local",
+    "category": "PM",
+    "stacks": [
+      "productivity"
+    ],
+    "command": [
+      "npx",
+      "-y",
+      "mcp-obsidian",
+      "{env:OBSIDIAN_VAULT_PATH}"
+    ],
+    "environment": {
+      "OBSIDIAN_VAULT_PATH": "{env:OBSIDIAN_VAULT_PATH}"
+    },
+    "envVars": [
+      {
+        "name": "OBSIDIAN_VAULT_PATH",
+        "required": true,
+        "desc": "absolute vault path"
+      }
+    ],
+    "toolsPrefix": "obsidian_*",
+    "install": "npx -y mcp-obsidian"
+  },
+  {
+    "id": "shadcn",
+    "title": "shadcn/ui",
+    "description": "Registry-aware component scaffolding for React + Tailwind.",
+    "type": "local",
+    "category": "Design",
+    "stacks": [
+      "web-dev"
+    ],
+    "command": [
+      "npx",
+      "shadcn@latest",
+      "mcp"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "shadcn_*",
+    "install": "npx shadcn@latest mcp"
+  },
+  {
+    "id": "youtube-transcript",
+    "title": "YouTube Transcript",
+    "description": "Fetch captions/transcripts for summarization (uvx, Python).",
+    "type": "local",
+    "category": "Media",
+    "stacks": [
+      "ai-search",
+      "productivity"
+    ],
+    "command": [
+      "uvx",
+      "mcp-youtube-transcript"
+    ],
+    "environment": {},
+    "envVars": [],
+    "toolsPrefix": "youtube_*",
+    "install": "uvx mcp-youtube-transcript"
+  }
+]

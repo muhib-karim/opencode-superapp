@@ -1,0 +1,19 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "google-drive": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-gdrive"
+      ],
+      "environment": {
+        "GOOGLE_CLIENT_ID": "{env:GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "{env:GOOGLE_CLIENT_SECRET}",
+        "GDRIVE_CREDS_PATH": "{env:GDRIVE_CREDS_PATH}"
+      }
+    }
+  }
+}

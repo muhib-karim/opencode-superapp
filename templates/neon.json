@@ -1,0 +1,14 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "neon": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.neon.tech/sse",
+      "headers": {
+        "Authorization": "Bearer {env:NEON_API_KEY}"
+      },
+      "oauth": false
+    }
+  }
+}

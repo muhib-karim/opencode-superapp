@@ -1,0 +1,14 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "exa": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.exa.ai/sse",
+      "headers": {
+        "Authorization": "Bearer {env:EXA_API_KEY}"
+      },
+      "oauth": false
+    }
+  }
+}

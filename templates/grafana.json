@@ -1,0 +1,24 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "grafana": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GRAFANA_URL",
+        "-e",
+        "GRAFANA_API_KEY",
+        "grafana/mcp-grafana:latest"
+      ],
+      "environment": {
+        "GRAFANA_URL": "{env:GRAFANA_URL}",
+        "GRAFANA_API_KEY": "{env:GRAFANA_API_KEY}"
+      }
+    }
+  }
+}

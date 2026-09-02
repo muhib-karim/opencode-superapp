@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "docker": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "uvx",
+        "mcp-server-docker"
+      ]
+    }
+  }
+}

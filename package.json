@@ -1,0 +1,34 @@
+{
+  "name": "opencode-superapp",
+  "version": "1.0.0",
+  "description": "Turn OpenCode into a super-app: 50 curated MCP servers, one-click stacks, zero-dependency installer",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ai-dev-2024/opencode-superapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ai-dev-2024/opencode-superapp/issues"
+  },
+  "homepage": "https://github.com/ai-dev-2024/opencode-superapp#readme",
+  "keywords": [
+    "opencode",
+    "mcp",
+    "model-context-protocol",
+    "ai-agents",
+    "coding-assistant",
+    "starter-kit"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "superapp": "node scripts/mcp-manager.mjs stack superapp",
+    "search": "node scripts/mcp-manager.mjs search",
+    "list": "node scripts/mcp-manager.mjs list",
+    "add": "node scripts/mcp-manager.mjs add",
+    "stack": "node scripts/mcp-manager.mjs stack",
+    "validate": "node scripts/validate.mjs"
+  }
+}

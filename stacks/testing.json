@@ -1,0 +1,66 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "playwright": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "@playwright/mcp@latest"
+      ]
+    },
+    "puppeteer": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ]
+    },
+    "chrome-devtools": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "chrome-devtools-mcp@latest"
+      ]
+    },
+    "firecrawl": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.firecrawl.dev/mcp",
+      "headers": {
+        "Authorization": "Bearer {env:FIRECRAWL_API_KEY}"
+      },
+      "oauth": false
+    },
+    "everything": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-everything"
+      ]
+    },
+    "time": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-time"
+      ]
+    },
+    "fetch": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-fetch"
+      ]
+    }
+  }
+}

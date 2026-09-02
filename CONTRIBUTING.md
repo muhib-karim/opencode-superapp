@@ -1,0 +1,33 @@
+# Contributing
+
+Thanks for helping grow the kit! A new MCP server is a great first PR.
+
+## Adding a server (checklist)
+
+1. **Research the official transport.** Prefer the maintainer's own package/image.
+   Local = `command[]` (npx / uvx / docker). Remote = `url` (+ `headers` or `oauth`).
+2. **Add one entry to `registry.json`** — `id` (kebab-case, matches the `mcp` key),
+   `title`, `description`, `type`, `category`, `stacks`, `command` **or** `url`,
+   `envVars` (never real secrets), `install` one-liner, `toolsPrefix`.
+3. **Add `templates/<id>.json`** — a minimal `{ "$schema", "mcp": { "<id>": … } }`
+   snippet. Secrets only as `{env:VAR}` placeholders. Key-based remotes get
+   `"oauth": false`; OAuth remotes get `"oauth": {}`.
+4. **Join at least one stack** in `stacks/*.json` (or justify a new stack).
+5. **Run `node scripts/validate.mjs`** — must pass (50-entry count will grow; update
+   the count assertion and this README's numbers when you add one).
+6. Update `registry.md` (regenerate), `README.md` counts, and `docs/STACKS.md` if needed.
+
+## Rules
+
+- No API keys, tokens, or personal paths in any committed file. CI greps for common
+  secret patterns; the validator rejects obvious literals.
+- Pin versions (`pkg@x.y.z`) when `latest` is known-flaky; otherwise `latest` is fine.
+- One concern per PR. Small diffs get reviewed fast.
+
+## Local dev
+
+```bash
+node scripts/validate.mjs
+node scripts/mcp-manager.mjs list
+node scripts/mcp-manager.mjs stack superapp --config ./test-opencode.json
+```

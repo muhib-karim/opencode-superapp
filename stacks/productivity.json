@@ -1,0 +1,96 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "slack": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@corail-research/slack-mcp-server"
+      ],
+      "environment": {
+        "SLACK_BOT_TOKEN": "{env:SLACK_BOT_TOKEN}",
+        "SLACK_TEAM_ID": "{env:SLACK_TEAM_ID}"
+      }
+    },
+    "discord": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "mcp-discord"
+      ],
+      "environment": {
+        "DISCORD_TOKEN": "{env:DISCORD_TOKEN}"
+      }
+    },
+    "linear": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.linear.app/sse",
+      "oauth": {}
+    },
+    "notion": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@notionhq/notion-mcp-server"
+      ],
+      "environment": {
+        "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer {env:NOTION_API_KEY}\"}"
+      }
+    },
+    "atlassian-jira": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/sse",
+      "oauth": {}
+    },
+    "atlassian-confluence": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/sse",
+      "oauth": {}
+    },
+    "google-drive": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-gdrive"
+      ],
+      "environment": {
+        "GOOGLE_CLIENT_ID": "{env:GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "{env:GOOGLE_CLIENT_SECRET}",
+        "GDRIVE_CREDS_PATH": "{env:GDRIVE_CREDS_PATH}"
+      }
+    },
+    "obsidian": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "mcp-obsidian",
+        "{env:OBSIDIAN_VAULT_PATH}"
+      ],
+      "environment": {
+        "OBSIDIAN_VAULT_PATH": "{env:OBSIDIAN_VAULT_PATH}"
+      }
+    },
+    "time": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-time"
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "kubernetes": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "mcp-server-kubernetes"
+      ],
+      "environment": {
+        "KUBECONFIG": "{env:KUBECONFIG}"
+      }
+    }
+  }
+}
