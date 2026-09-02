@@ -6,6 +6,7 @@
 [![Stacks](https://img.shields.io/badge/stacks-7-green)](docs/STACKS.md)
 [![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](package.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Buy_me_a_coffee-F16061?logo=ko-fi&logoColor=white)](https://ko-fi.com/ai_dev_2024)
 
 OpenCode is already special: one agent in your terminal, **any model you like** —
 and via [OpenCode Zen](https://opencode.ai/auth) a set of **free models that cost
@@ -119,6 +120,12 @@ spending anything. When you're ready, swap in a frontier model — same tools.
 3. Key-based remotes need `"oauth": false`; OAuth remotes need `"oauth": {}` + `opencode mcp auth <name>`.
 4. ≤ 8 servers per session; gate heavy ones per-agent (see `opencode.example.json`).
 5. `node scripts/validate.mjs` after every hand-edit.
+
+## ☕ Support
+
+If this kit turned your OpenCode into a super-app, consider fuelling the next
+one — [buy me a coffee on Ko-fi](https://ko-fi.com/ai_dev_2024). Every coffee
+goes into more servers, stacks, and docs. Thank you! 🙏
 
 ## Contribute
 
