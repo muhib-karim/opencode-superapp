@@ -1236,5 +1236,28 @@
     "envVars": [],
     "toolsPrefix": "youtube_*",
     "install": "uvx mcp-youtube-transcript"
+  },
+  {
+    "id": "statsnet",
+    "title": "Statsnet",
+    "description": "Background check any company in the world: registration, executives, courts and finances. Remote: https://statsnet.co/mcp",
+    "type": "remote",
+    "category": "Data",
+    "stacks": [
+      "data-analysis",
+      "productivity"
+    ],
+    "url": "https://statsnet.co/mcp",
+    "headers": {},
+    "oauth": false,
+    "envVars": [
+      {
+        "name": "STATSNET_API_KEY",
+        "required": false,
+        "desc": "Optional API key for higher limits"
+      }
+    ],
+    "toolsPrefix": "statsnet_*",
+    "install": "(remote \u2014 no install)"
   }
 ]
