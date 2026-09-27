@@ -157,3 +157,5 @@ Search: Ctrl+F this file, or run `node scripts/mcp-manager.mjs search <query>`. 
   `npx shadcn@latest mcp` — template `templates/shadcn.json`
 - **youtube-transcript** (local) — Fetch captions/transcripts for summarization (uvx, Python).  
   `uvx mcp-youtube-transcript` — template `templates/youtube-transcript.json`
+
+| statsnet | Statsnet | Data | remote | Background check any company in the world: registration, executives, courts and finances. |
