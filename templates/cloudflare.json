@@ -3,17 +3,9 @@
   "mcp": {
     "cloudflare": {
       "enabled": true,
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@cloudflare/mcp-server-cloudflare@latest",
-        "init"
-      ],
-      "environment": {
-        "CLOUDFLARE_API_TOKEN": "{env:CLOUDFLARE_API_TOKEN}",
-        "CLOUDFLARE_ACCOUNT_ID": "{env:CLOUDFLARE_ACCOUNT_ID}"
-      }
+      "type": "remote",
+      "url": "https://mcp.cloudflare.com/mcp",
+      "oauth": {}
     }
   }
 }

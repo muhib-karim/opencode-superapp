@@ -26,7 +26,7 @@ Minimal local (`templates/fetch.json` pattern):
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
-    "fetch": { "type": "local", "command": ["npx", "-y", "@modelcontextprotocol/server-fetch"], "enabled": true }
+    "fetch": { "type": "local", "command": ["uvx", "mcp-server-fetch"], "enabled": true }
   }
 }
 ```
@@ -108,9 +108,9 @@ $env:POSTGRES_CONNECTION_STRING="postgresql://user:pass@localhost:5432/db"
 | `postgres` (local npx) | arg **and** `environment.POSTGRES_CONNECTION_STRING` | `postgresql://…` |
 | `notion` (local) | `environment.OPENAPI_MCP_HEADERS` embeds `{env:NOTION_API_KEY}` | share pages with the integration first |
 | `context7` (remote, optional key) | `headers.CONTEXT7_API_KEY` + `"oauth": false` | works keyless at low limits |
-| `exa` / `firecrawl` / `neon` (remote, required key) | `headers.Authorization: "Bearer {env:X}"` + `"oauth": false` | 401 = unset var |
-| `sentry` / `linear` / `figma` / `vercel` (remote OAuth) | `"oauth": {}` and **no** `headers` | `opencode mcp auth <name>` |
-| `datadog` (remote, key — not OAuth) | `headers.DD-API-KEY` + `DD-APPLICATION-KEY`, `"oauth": false` | omitting `oauth:false` triggers a bogus browser flow |
+| `exa` / `firecrawl` / `neon` / `digitalocean` (remote, required key) | `headers.Authorization: "Bearer {env:X}"` + `"oauth": false` | 401 = unset var |
+| `sentry` / `linear` / `figma` / `vercel` / `cloudflare` / `atlassian-*` (remote OAuth) | `"oauth": {}` and **no** `headers` | `opencode mcp auth <name>` |
+| `datadog` (remote, key — not OAuth) | `headers.DD_API_KEY` + `DD_APPLICATION_KEY`, `"oauth": false` | omitting `oauth:false` triggers a bogus browser flow |
 
 Debug sequence for 401s: `echo $VAR` (is it set?) → `opencode mcp list` →
 `opencode mcp debug <name>` → `opencode mcp logout <name> && opencode mcp auth <name>`.
@@ -121,13 +121,19 @@ Debug sequence for 401s: `echo $VAR` (is it set?) → `opencode mcp list` →
 
 Each local server needs **exactly one** runtime. Pin versions and isolate:
 
-1. **Node servers (`npx -y …`)** need Node ≥ 18. `npx -y` auto-downloads; concurrent
+1. **Node servers (`npx -y …`)** need Node ≥ 18 (the kit's own scripts do too); some
+   newer servers need more (`mongodb` / `chrome-devtools` ≥ 20.19, `shadcn` ≥ 20.18,
+   `azure` ≥ 22; `brave-search` fails on Node 20.9) — Node 22 LTS is the safe choice. `playwright` also needs a browser
+   (`npx playwright install chrome`). `npx -y` auto-downloads; concurrent
    first-runs can corrupt the npm cache — pre-warm with `npm exec --yes <pkg> -- --help`.
    Pin: `npx @playwright/mcp@1.52.0` instead of `@latest` when a team shares a config.
 2. **Python servers (`uvx …`)** need Python ≥ 3.10 and `uv` (`pip install uv` /
    `powershell -c "irm https://astral.sh/uv/install.ps1 | iex"`). If `uvx` is missing,
-   `git`, `sqlite`, `docker`, `aws-docs`, `youtube-transcript` all fail with ENOENT.
-   Fix: install uv, then `uvx mcp-server-git --help` once to warm the venv cache.
+   `fetch` and `time` (both in the superapp stack), `git`, `sqlite`, `docker`,
+   `aws-docs`, `youtube-transcript` all fail with ENOENT — the installer warns when a
+   server's launcher isn't on PATH. Fix: install uv, then `uvx mcp-server-git --help`
+   once to warm the venv cache. `sqlite` and `youtube-transcript` are pinned with
+   `--with "mcp<2"` because their last releases crash on the MCP 2.x Python SDK.
 3. **Docker servers (`github`, `terraform`, `grafana`)** need a running daemon and
    the image pulled (`docker pull ghcr.io/github/github-mcp-server`). On Windows use
    WSL2 backend; `docker run -i --rm` must be non-interactive — never add `-it`.
@@ -163,7 +169,7 @@ blow the budget. Pattern (see `opencode.example.json`):
 
 i.e. disable heavy servers globally, opt in per-agent. `*` matches any suffix;
 MCP tools are always `<server>_<tool>`. Keep ≤ 8 enabled servers per session;
-prefer remote keyless `fetch`/`time` over heavier equivalents for trivial tasks.
+prefer lightweight keyless `fetch`/`time` over heavier equivalents for trivial tasks.
 
 ## 5. Windows notes
 

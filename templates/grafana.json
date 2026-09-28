@@ -12,12 +12,14 @@
         "-e",
         "GRAFANA_URL",
         "-e",
-        "GRAFANA_API_KEY",
-        "grafana/mcp-grafana:latest"
+        "GRAFANA_SERVICE_ACCOUNT_TOKEN",
+        "grafana/mcp-grafana:latest",
+        "-t",
+        "stdio"
       ],
       "environment": {
         "GRAFANA_URL": "{env:GRAFANA_URL}",
-        "GRAFANA_API_KEY": "{env:GRAFANA_API_KEY}"
+        "GRAFANA_SERVICE_ACCOUNT_TOKEN": "{env:GRAFANA_SERVICE_ACCOUNT_TOKEN}"
       }
     }
   }

@@ -7,7 +7,7 @@
       "command": [
         "npx",
         "-y",
-        "@corail-research/slack-mcp-server"
+        "@zencoderai/slack-mcp-server"
       ],
       "environment": {
         "SLACK_BOT_TOKEN": "{env:SLACK_BOT_TOKEN}",
@@ -29,7 +29,7 @@
     "linear": {
       "enabled": true,
       "type": "remote",
-      "url": "https://mcp.linear.app/sse",
+      "url": "https://mcp.linear.app/mcp",
       "oauth": {}
     },
     "notion": {
@@ -47,13 +47,13 @@
     "atlassian-jira": {
       "enabled": true,
       "type": "remote",
-      "url": "https://mcp.atlassian.com/v1/sse",
+      "url": "https://mcp.atlassian.com/v2/mcp",
       "oauth": {}
     },
     "atlassian-confluence": {
       "enabled": true,
       "type": "remote",
-      "url": "https://mcp.atlassian.com/v1/sse",
+      "url": "https://mcp.atlassian.com/v2/mcp",
       "oauth": {}
     },
     "google-drive": {
@@ -87,9 +87,8 @@
       "enabled": true,
       "type": "local",
       "command": [
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-time"
+        "uvx",
+        "mcp-server-time"
       ]
     }
   }

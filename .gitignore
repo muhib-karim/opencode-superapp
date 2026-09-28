@@ -5,10 +5,15 @@ tui.json
 *.log
 test-*.json
 
-# deps / caches
+# deps / caches / build + test output
 node_modules/
 .npm/
 .uv-cache/
+.venv/
+dist/
+build/
+coverage/
+*.tgz
 
 # OS / editors
 .DS_Store

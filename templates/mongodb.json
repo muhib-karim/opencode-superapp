@@ -7,12 +7,10 @@
       "command": [
         "npx",
         "-y",
-        "mongodb-mcp-server",
-        "--connectionString",
-        "{env:MONGODB_URI}"
+        "mongodb-mcp-server"
       ],
       "environment": {
-        "MONGODB_URI": "{env:MONGODB_URI}"
+        "MDB_MCP_CONNECTION_STRING": "{env:MONGODB_URI}"
       }
     }
   }

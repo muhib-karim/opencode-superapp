@@ -28,7 +28,7 @@ if [[ $# -eq 0 ]]; then
   echo "  4) ai-search     (web search, scrape, docs grounding)"
   echo "  5) productivity  (tickets, docs, chat)"
   echo "  6) testing       (browsers, perf, reference harness)"
-  read -rp "Choice [0-6]: " c
+  read -rp "Choice [0-6]: " c || { echo; echo "no input; non-interactive: ./install.sh --superapp | --stack NAME | --add ID..."; exit 1; }
   case "$c" in
     0|"") S=superapp;; 1) S=web-dev;; 2) S=data-analysis;; 3) S=devops;;
     4) S=ai-search;; 5) S=productivity;; 6) S=testing;;

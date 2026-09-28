@@ -7,7 +7,7 @@
       "command": [
         "npx",
         "-y",
-        "@modelcontextprotocol/server-brave-search"
+        "@brave/brave-search-mcp-server"
       ],
       "environment": {
         "BRAVE_API_KEY": "{env:BRAVE_API_KEY}"

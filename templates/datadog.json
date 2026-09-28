@@ -4,10 +4,10 @@
     "datadog": {
       "enabled": true,
       "type": "remote",
-      "url": "https://mcp.datadoghq.com/api/v2/mcp",
+      "url": "https://mcp.datadoghq.com/v1/mcp",
       "headers": {
-        "DD-API-KEY": "{env:DD_API_KEY}",
-        "DD-APPLICATION-KEY": "{env:DD_APP_KEY}"
+        "DD_API_KEY": "{env:DD_API_KEY}",
+        "DD_APPLICATION_KEY": "{env:DD_APP_KEY}"
       },
       "oauth": false
     }
