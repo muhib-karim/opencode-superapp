@@ -6,6 +6,8 @@
       "type": "local",
       "command": [
         "uvx",
+        "--with",
+        "mcp<2",
         "mcp-server-sqlite",
         "--db-path",
         "{env:SQLITE_DB_PATH}"

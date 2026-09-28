@@ -57,6 +57,11 @@ cd opencode-superapp
 # .\install.ps1 -Superapp      # Windows PowerShell   (or .\install.ps1 for the menu)
 ```
 
+The installer writes `./opencode.json` in the **current directory**. To set up a
+project, run it from there (`cd ~/my-app && ~/opencode-superapp/install.sh --superapp`),
+add `--global` for `~/.config/opencode/opencode.json`, or pass `--config <path>`
+(`-Global` / `-Config <path>` in PowerShell).
+
 That's it. **8 tools, zero API keys**, merged into your `./opencode.json`:
 
 | # | Tool | Your agent can now… |
@@ -70,7 +75,12 @@ That's it. **8 tools, zero API keys**, merged into your `./opencode.json`:
 | 7 | `gh_grep` | regex-search millions of GitHub repos for real examples |
 | 8 | `playwright` | drive a real browser: click, fill, screenshot |
 
-Verify: `opencode mcp list`. Then try:
+**Needs:** Node ≥ 18 (for `npx`) and [uv](https://docs.astral.sh/uv/getting-started/installation/)
+for `fetch` and `time` — the official servers are Python packages run via `uvx`. The
+installer warns if a launcher isn't on your PATH. `playwright` drives a local Chrome;
+if it can't find one, run `npx playwright install chrome` (not exercised by the tests).
+
+Verify: `opencode mcp list` — all 8 should show `connected`. Then try:
 *"Use context7 to check the latest Next.js caching docs, then use playwright
 to open our staging URL and screenshot the pricing page."* — that's the super-app loop.
 
@@ -119,7 +129,27 @@ spending anything. When you're ready, swap in a frontier model — same tools.
 2. `environment` = **local** servers; `headers` = **remote** servers. Swapping them is the #1 401.
 3. Key-based remotes need `"oauth": false`; OAuth remotes need `"oauth": {}` + `opencode mcp auth <name>`.
 4. ≤ 8 servers per session; gate heavy ones per-agent (see `opencode.example.json`).
-5. `node scripts/validate.mjs` after every hand-edit.
+5. `node scripts/validate.mjs` after every hand-edit to this kit's JSON.
+
+## Development & testing
+
+Zero dependencies — no `npm install` needed. Node ≥ 18 (CI runs Node 18, 20 and 22).
+
+```bash
+node scripts/validate.mjs   # registry ↔ templates ↔ stacks ↔ registry.md consistency, secret/placeholder checks
+npm test                    # node:test suite in test/: manager, validator, install.sh, install.ps1 (when pwsh is installed)
+npm run registry:md         # regenerate registry.md after editing registry.json
+```
+
+Tests never touch your real config — every case writes to a temp directory. CI
+([`.github/workflows/validate.yml`](.github/workflows/validate.yml)) runs the
+validator, the test suite and a `stack superapp` smoke install on every push and PR.
+
+Verified on Linux with Node 18, 20 and 22, bash, PowerShell 7 (`install.ps1` via
+`pwsh`) and OpenCode 1.18.33 (`opencode mcp list`: all 8 superapp servers connected).
+Not verified here: native Windows / Windows PowerShell 5.1, macOS, the OpenCode
+installers in step 1 other than `npm install -g opencode-ai`, Docker-based servers,
+OAuth flows, and servers that need real API keys.
 
 ## ☕ Support
 

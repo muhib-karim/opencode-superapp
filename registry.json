@@ -6,13 +6,14 @@
     "type": "local",
     "category": "Core",
     "stacks": [
-      "web-dev"
+      "web-dev",
+      "superapp"
     ],
     "command": [
       "npx",
       "-y",
       "@modelcontextprotocol/server-filesystem",
-      "${ALLOWED_DIR}"
+      "."
     ],
     "environment": {},
     "envVars": [],
@@ -26,8 +27,7 @@
     "type": "local",
     "category": "Core",
     "stacks": [
-      "web-dev",
-      "devops"
+      "web-dev"
     ],
     "command": [
       "uvx",
@@ -77,7 +77,6 @@
     "type": "local",
     "category": "Dev",
     "stacks": [
-      "web-dev",
       "devops"
     ],
     "command": [
@@ -143,6 +142,8 @@
     ],
     "command": [
       "uvx",
+      "--with",
+      "mcp<2",
       "mcp-server-sqlite",
       "--db-path",
       "{env:SQLITE_DB_PATH}"
@@ -158,7 +159,7 @@
       }
     ],
     "toolsPrefix": "sqlite_*",
-    "install": "uvx mcp-server-sqlite"
+    "install": "uvx --with \"mcp<2\" mcp-server-sqlite"
   },
   {
     "id": "mysql",
@@ -178,8 +179,8 @@
       "MYSQL_HOST": "{env:MYSQL_HOST}",
       "MYSQL_PORT": "{env:MYSQL_PORT}",
       "MYSQL_USER": "{env:MYSQL_USER}",
-      "MYSQL_PASSWORD": "{env:MYSQL_PASSWORD}",
-      "MYSQL_DATABASE": "{env:MYSQL_DATABASE}"
+      "MYSQL_PASS": "{env:MYSQL_PASSWORD}",
+      "MYSQL_DB": "{env:MYSQL_DATABASE}"
     },
     "envVars": [
       {
@@ -223,12 +224,10 @@
     "command": [
       "npx",
       "-y",
-      "mongodb-mcp-server",
-      "--connectionString",
-      "{env:MONGODB_URI}"
+      "mongodb-mcp-server"
     ],
     "environment": {
-      "MONGODB_URI": "{env:MONGODB_URI}"
+      "MDB_MCP_CONNECTION_STRING": "{env:MONGODB_URI}"
     },
     "envVars": [
       {
@@ -247,18 +246,15 @@
     "type": "local",
     "category": "Data",
     "stacks": [
-      "data-analysis",
-      "devops"
+      "data-analysis"
     ],
     "command": [
       "npx",
       "-y",
       "@gongrzhe/server-redis-mcp",
-      "redis://localhost:6379"
+      "{env:REDIS_URL}"
     ],
-    "environment": {
-      "REDIS_URL": "{env:REDIS_URL}"
-    },
+    "environment": {},
     "envVars": [
       {
         "name": "REDIS_URL",
@@ -311,13 +307,13 @@
     "type": "local",
     "category": "Data",
     "stacks": [
-      "data-analysis",
-      "web-dev"
+      "data-analysis"
     ],
     "command": [
       "npx",
       "-y",
-      "@prisma/mcp-server"
+      "prisma@6",
+      "mcp"
     ],
     "environment": {
       "DATABASE_URL": "{env:DATABASE_URL}"
@@ -330,7 +326,7 @@
       }
     ],
     "toolsPrefix": "prisma_*",
-    "install": "npx -y @prisma/mcp-server"
+    "install": "npx -y prisma@6 mcp"
   },
   {
     "id": "neon",
@@ -339,10 +335,9 @@
     "type": "remote",
     "category": "Data",
     "stacks": [
-      "data-analysis",
-      "devops"
+      "data-analysis"
     ],
-    "url": "https://mcp.neon.tech/sse",
+    "url": "https://mcp.neon.tech/mcp",
     "headers": {
       "Authorization": "Bearer {env:NEON_API_KEY}"
     },
@@ -365,7 +360,8 @@
     "category": "Test",
     "stacks": [
       "web-dev",
-      "testing"
+      "testing",
+      "superapp"
     ],
     "command": [
       "npx",
@@ -438,7 +434,8 @@
     "category": "Docs",
     "stacks": [
       "web-dev",
-      "ai-search"
+      "ai-search",
+      "superapp"
     ],
     "url": "https://mcp.context7.com/mcp",
     "headers": {
@@ -463,7 +460,8 @@
     "category": "Docs",
     "stacks": [
       "web-dev",
-      "ai-search"
+      "ai-search",
+      "superapp"
     ],
     "url": "https://mcp.grep.app",
     "oauth": false,
@@ -483,7 +481,7 @@
     "command": [
       "npx",
       "-y",
-      "@modelcontextprotocol/server-brave-search"
+      "@brave/brave-search-mcp-server"
     ],
     "environment": {
       "BRAVE_API_KEY": "{env:BRAVE_API_KEY}"
@@ -496,7 +494,7 @@
       }
     ],
     "toolsPrefix": "brave_*",
-    "install": "npx -y @modelcontextprotocol/server-brave-search"
+    "install": "npx -y @brave/brave-search-mcp-server"
   },
   {
     "id": "tavily",
@@ -528,13 +526,13 @@
   {
     "id": "exa",
     "title": "Exa Search",
-    "description": "Neural web search + crawl. Remote SSE with API-key header.",
+    "description": "Neural web search + crawl. Remote MCP with API-key header.",
     "type": "remote",
     "category": "Search",
     "stacks": [
       "ai-search"
     ],
-    "url": "https://mcp.exa.ai/sse",
+    "url": "https://mcp.exa.ai/mcp",
     "headers": {
       "Authorization": "Bearer {env:EXA_API_KEY}"
     },
@@ -559,7 +557,7 @@
       "ai-search",
       "testing"
     ],
-    "url": "https://mcp.firecrawl.dev/mcp",
+    "url": "https://mcp.firecrawl.dev/v2/mcp",
     "headers": {
       "Authorization": "Bearer {env:FIRECRAWL_API_KEY}"
     },
@@ -582,17 +580,18 @@
     "category": "Core",
     "stacks": [
       "web-dev",
-      "ai-search"
+      "ai-search",
+      "superapp",
+      "testing"
     ],
     "command": [
-      "npx",
-      "-y",
-      "@modelcontextprotocol/server-fetch"
+      "uvx",
+      "mcp-server-fetch"
     ],
     "environment": {},
     "envVars": [],
     "toolsPrefix": "fetch_*",
-    "install": "npx -y @modelcontextprotocol/server-fetch"
+    "install": "uvx mcp-server-fetch"
   },
   {
     "id": "memory",
@@ -602,7 +601,8 @@
     "category": "AI",
     "stacks": [
       "data-analysis",
-      "ai-search"
+      "ai-search",
+      "superapp"
     ],
     "command": [
       "npx",
@@ -622,7 +622,8 @@
     "category": "AI",
     "stacks": [
       "data-analysis",
-      "ai-search"
+      "ai-search",
+      "superapp"
     ],
     "command": [
       "npx",
@@ -642,17 +643,17 @@
     "category": "Core",
     "stacks": [
       "productivity",
-      "ai-search"
+      "superapp",
+      "testing"
     ],
     "command": [
-      "npx",
-      "-y",
-      "@modelcontextprotocol/server-time"
+      "uvx",
+      "mcp-server-time"
     ],
     "environment": {},
     "envVars": [],
     "toolsPrefix": "time_*",
-    "install": "npx -y @modelcontextprotocol/server-time"
+    "install": "uvx mcp-server-time"
   },
   {
     "id": "everything",
@@ -685,7 +686,7 @@
     "command": [
       "npx",
       "-y",
-      "@corail-research/slack-mcp-server"
+      "@zencoderai/slack-mcp-server"
     ],
     "environment": {
       "SLACK_BOT_TOKEN": "{env:SLACK_BOT_TOKEN}",
@@ -704,7 +705,7 @@
       }
     ],
     "toolsPrefix": "slack_*",
-    "install": "npx -y @corail-research/slack-mcp-server"
+    "install": "npx -y @zencoderai/slack-mcp-server"
   },
   {
     "id": "discord",
@@ -742,7 +743,7 @@
     "stacks": [
       "productivity"
     ],
-    "url": "https://mcp.linear.app/sse",
+    "url": "https://mcp.linear.app/mcp",
     "oauth": {},
     "envVars": [],
     "toolsPrefix": "linear_*",
@@ -796,14 +797,11 @@
     "description": "Products, prices, invoices, payment links (test-mode safe).",
     "type": "local",
     "category": "Payments",
-    "stacks": [
-      "web-dev"
-    ],
+    "stacks": [],
     "command": [
       "npx",
       "-y",
-      "@stripe/mcp-server",
-      "--tools=all"
+      "@stripe/mcp"
     ],
     "environment": {
       "STRIPE_SECRET_KEY": "{env:STRIPE_SECRET_KEY}"
@@ -812,11 +810,11 @@
       {
         "name": "STRIPE_SECRET_KEY",
         "required": true,
-        "desc": "sk_test_... (never commit live keys)"
+        "desc": "restricted rk_test_... key recommended (never commit live keys)"
       }
     ],
     "toolsPrefix": "stripe_*",
-    "install": "npx -y @stripe/mcp-server"
+    "install": "npx -y @stripe/mcp"
   },
   {
     "id": "vercel",
@@ -825,8 +823,7 @@
     "type": "remote",
     "category": "Cloud",
     "stacks": [
-      "web-dev",
-      "devops"
+      "web-dev"
     ],
     "url": "https://mcp.vercel.com",
     "oauth": {},
@@ -841,61 +838,41 @@
     "type": "local",
     "category": "Cloud",
     "stacks": [
-      "web-dev",
-      "devops"
+      "web-dev"
     ],
     "command": [
       "npx",
       "-y",
-      "@netlify/mcp-server@latest"
+      "@netlify/mcp"
     ],
     "environment": {
-      "NETLIFY_AUTH_TOKEN": "{env:NETLIFY_AUTH_TOKEN}"
+      "NETLIFY_PERSONAL_ACCESS_TOKEN": "{env:NETLIFY_PERSONAL_ACCESS_TOKEN}"
     },
     "envVars": [
       {
-        "name": "NETLIFY_AUTH_TOKEN",
+        "name": "NETLIFY_PERSONAL_ACCESS_TOKEN",
         "required": true,
         "desc": "nfp_ personal access token"
       }
     ],
     "toolsPrefix": "netlify_*",
-    "install": "npx -y @netlify/mcp-server@latest"
+    "install": "npx -y @netlify/mcp"
   },
   {
     "id": "cloudflare",
     "title": "Cloudflare",
     "description": "Workers, KV, R2, DNS, Pages bindings.",
-    "type": "local",
+    "type": "remote",
     "category": "Cloud",
     "stacks": [
-      "web-dev",
       "devops"
     ],
-    "command": [
-      "npx",
-      "-y",
-      "@cloudflare/mcp-server-cloudflare@latest",
-      "init"
-    ],
-    "environment": {
-      "CLOUDFLARE_API_TOKEN": "{env:CLOUDFLARE_API_TOKEN}",
-      "CLOUDFLARE_ACCOUNT_ID": "{env:CLOUDFLARE_ACCOUNT_ID}"
-    },
-    "envVars": [
-      {
-        "name": "CLOUDFLARE_API_TOKEN",
-        "required": true,
-        "desc": "scoped API token"
-      },
-      {
-        "name": "CLOUDFLARE_ACCOUNT_ID",
-        "required": true,
-        "desc": "account id"
-      }
-    ],
+    "environment": {},
+    "envVars": [],
     "toolsPrefix": "cloudflare_*",
-    "install": "npx -y @cloudflare/mcp-server-cloudflare@latest init"
+    "install": "(remote \u2014 `opencode mcp auth cloudflare`)",
+    "url": "https://mcp.cloudflare.com/mcp",
+    "oauth": {}
   },
   {
     "id": "aws-docs",
@@ -908,20 +885,14 @@
     ],
     "command": [
       "uvx",
-      "awslabs.aws-docs-mcp-server@latest"
+      "awslabs.aws-documentation-mcp-server@latest"
     ],
     "environment": {
-      "AWS_REGION": "{env:AWS_REGION}"
+      "FASTMCP_LOG_LEVEL": "ERROR"
     },
-    "envVars": [
-      {
-        "name": "AWS_REGION",
-        "required": false,
-        "desc": "default us-east-1"
-      }
-    ],
+    "envVars": [],
     "toolsPrefix": "aws_*",
-    "install": "uvx awslabs.aws-docs-mcp-server@latest"
+    "install": "uvx awslabs.aws-documentation-mcp-server@latest"
   },
   {
     "id": "azure",
@@ -1012,13 +983,13 @@
   {
     "id": "digitalocean",
     "title": "DigitalOcean",
-    "description": "Droplets, apps, databases via Gradient remote MCP.",
+    "description": "App Platform apps via DigitalOcean's remote MCP (other services: https://<service>.mcp.digitalocean.com/mcp).",
     "type": "remote",
     "category": "Cloud",
     "stacks": [
       "devops"
     ],
-    "url": "https://mcp.digitalocean.com/sse",
+    "url": "https://apps.mcp.digitalocean.com/mcp",
     "headers": {
       "Authorization": "Bearer {env:DIGITALOCEAN_API_TOKEN}"
     },
@@ -1050,12 +1021,14 @@
       "-e",
       "GRAFANA_URL",
       "-e",
-      "GRAFANA_API_KEY",
-      "grafana/mcp-grafana:latest"
+      "GRAFANA_SERVICE_ACCOUNT_TOKEN",
+      "grafana/mcp-grafana:latest",
+      "-t",
+      "stdio"
     ],
     "environment": {
       "GRAFANA_URL": "{env:GRAFANA_URL}",
-      "GRAFANA_API_KEY": "{env:GRAFANA_API_KEY}"
+      "GRAFANA_SERVICE_ACCOUNT_TOKEN": "{env:GRAFANA_SERVICE_ACCOUNT_TOKEN}"
     },
     "envVars": [
       {
@@ -1064,9 +1037,9 @@
         "desc": "https://your-stack.grafana.net"
       },
       {
-        "name": "GRAFANA_API_KEY",
+        "name": "GRAFANA_SERVICE_ACCOUNT_TOKEN",
         "required": true,
-        "desc": "service account token"
+        "desc": "service account token (GRAFANA_API_KEY is deprecated)"
       }
     ],
     "toolsPrefix": "grafana_*",
@@ -1081,10 +1054,10 @@
     "stacks": [
       "devops"
     ],
-    "url": "https://mcp.datadoghq.com/api/v2/mcp",
+    "url": "https://mcp.datadoghq.com/v1/mcp",
     "headers": {
-      "DD-API-KEY": "{env:DD_API_KEY}",
-      "DD-APPLICATION-KEY": "{env:DD_APP_KEY}"
+      "DD_API_KEY": "{env:DD_API_KEY}",
+      "DD_APPLICATION_KEY": "{env:DD_APP_KEY}"
     },
     "oauth": false,
     "envVars": [
@@ -1111,7 +1084,7 @@
     "stacks": [
       "productivity"
     ],
-    "url": "https://mcp.atlassian.com/v1/sse",
+    "url": "https://mcp.atlassian.com/v2/mcp",
     "oauth": {},
     "envVars": [],
     "toolsPrefix": "jira_*",
@@ -1126,7 +1099,7 @@
     "stacks": [
       "productivity"
     ],
-    "url": "https://mcp.atlassian.com/v1/sse",
+    "url": "https://mcp.atlassian.com/v2/mcp",
     "oauth": {},
     "envVars": [],
     "toolsPrefix": "confluence_*",
@@ -1225,16 +1198,17 @@
     "type": "local",
     "category": "Media",
     "stacks": [
-      "ai-search",
-      "productivity"
+      "ai-search"
     ],
     "command": [
       "uvx",
+      "--with",
+      "mcp<2",
       "mcp-youtube-transcript"
     ],
     "environment": {},
     "envVars": [],
     "toolsPrefix": "youtube_*",
-    "install": "uvx mcp-youtube-transcript"
+    "install": "uvx --with \"mcp<2\" mcp-youtube-transcript"
   }
 ]

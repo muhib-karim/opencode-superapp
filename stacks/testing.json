@@ -29,7 +29,7 @@
     "firecrawl": {
       "enabled": true,
       "type": "remote",
-      "url": "https://mcp.firecrawl.dev/mcp",
+      "url": "https://mcp.firecrawl.dev/v2/mcp",
       "headers": {
         "Authorization": "Bearer {env:FIRECRAWL_API_KEY}"
       },
@@ -48,18 +48,16 @@
       "enabled": true,
       "type": "local",
       "command": [
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-time"
+        "uvx",
+        "mcp-server-time"
       ]
     },
     "fetch": {
       "enabled": true,
       "type": "local",
       "command": [
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-fetch"
+        "uvx",
+        "mcp-server-fetch"
       ]
     }
   }

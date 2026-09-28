@@ -4,61 +4,61 @@ Search: Ctrl+F this file, or run `node scripts/mcp-manager.mjs search <query>`. 
 
 | # | ID | Type | Title | Stacks | Secrets | Install |
 |---|---|---|---|---|---|---|
-| 1 | `filesystem` | local | Filesystem | web-dev | — | `npx -y @modelcontextprotocol/server-filesystem` |
-| 2 | `git` | local | Git | web-dev, devops | — | `uvx mcp-server-git` |
+| 1 | `filesystem` | local | Filesystem | web-dev, superapp | — | `npx -y @modelcontextprotocol/server-filesystem` |
+| 2 | `git` | local | Git | web-dev | — | `uvx mcp-server-git` |
 | 3 | `github` | local | GitHub | web-dev, devops | GITHUB_PERSONAL_ACCESS_TOKEN | `docker pull ghcr.io/github/github-mcp-server` |
-| 4 | `gitlab` | local | GitLab | web-dev, devops | GITLAB_PERSONAL_ACCESS_TOKEN | `npx -y @modelcontextprotocol/server-gitlab` |
+| 4 | `gitlab` | local | GitLab | devops | GITLAB_PERSONAL_ACCESS_TOKEN | `npx -y @modelcontextprotocol/server-gitlab` |
 | 5 | `postgres` | local | PostgreSQL | data-analysis | POSTGRES_CONNECTION_STRING | `npx -y @modelcontextprotocol/server-postgres` |
-| 6 | `sqlite` | local | SQLite | data-analysis | SQLITE_DB_PATH | `uvx mcp-server-sqlite` |
+| 6 | `sqlite` | local | SQLite | data-analysis | SQLITE_DB_PATH | `uvx --with "mcp<2" mcp-server-sqlite` |
 | 7 | `mysql` | local | MySQL / MariaDB | data-analysis | MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE | `npx -y @benborla29/mcp-server-mysql` |
 | 8 | `mongodb` | local | MongoDB | data-analysis | MONGODB_URI | `npx -y mongodb-mcp-server` |
-| 9 | `redis` | local | Redis | data-analysis, devops | — | `npx -y @gongrzhe/server-redis-mcp` |
+| 9 | `redis` | local | Redis | data-analysis | — | `npx -y @gongrzhe/server-redis-mcp` |
 | 10 | `supabase` | local | Supabase | data-analysis, web-dev | SUPABASE_ACCESS_TOKEN, SUPABASE_PROJECT_REF | `npx -y @supabase/mcp-server-supabase@latest` |
-| 11 | `prisma` | local | Prisma Postgres | data-analysis, web-dev | DATABASE_URL | `npx -y @prisma/mcp-server` |
-| 12 | `neon` | remote | Neon Postgres | data-analysis, devops | NEON_API_KEY | `(remote — no install)` |
-| 13 | `playwright` | local | Playwright | web-dev, testing | — | `npx @playwright/mcp@latest --install` |
+| 11 | `prisma` | local | Prisma Postgres | data-analysis | DATABASE_URL | `npx -y prisma@6 mcp` |
+| 12 | `neon` | remote | Neon Postgres | data-analysis | NEON_API_KEY | `(remote — no install)` |
+| 13 | `playwright` | local | Playwright | web-dev, testing, superapp | — | `npx @playwright/mcp@latest --install` |
 | 14 | `puppeteer` | local | Puppeteer | web-dev, testing | — | `npx -y @modelcontextprotocol/server-puppeteer` |
 | 15 | `chrome-devtools` | local | Chrome DevTools | web-dev, testing | — | `npx chrome-devtools-mcp@latest` |
-| 16 | `sentry` | remote | Sentry | devops | OAuth | `(remote — no install; run `opencode mcp auth sentry`` |
-| 17 | `context7` | remote | Context7 | web-dev, ai-search | OAuth | `(remote — no install)` |
-| 18 | `gh_grep` | remote | Grep by Vercel | web-dev, ai-search | OAuth | `(remote — no install)` |
-| 19 | `brave-search` | local | Brave Search | ai-search | BRAVE_API_KEY | `npx -y @modelcontextprotocol/server-brave-search` |
+| 16 | `sentry` | remote | Sentry | devops | OAuth | `` (remote — no install; run `opencode mcp auth sentry`) `` |
+| 17 | `context7` | remote | Context7 | web-dev, ai-search, superapp | — | `(remote — no install)` |
+| 18 | `gh_grep` | remote | Grep by Vercel | web-dev, ai-search, superapp | — | `(remote — no install)` |
+| 19 | `brave-search` | local | Brave Search | ai-search | BRAVE_API_KEY | `npx -y @brave/brave-search-mcp-server` |
 | 20 | `tavily` | local | Tavily Search | ai-search | TAVILY_API_KEY | `npx -y tavily-mcp@latest` |
 | 21 | `exa` | remote | Exa Search | ai-search | EXA_API_KEY | `(remote — no install)` |
 | 22 | `firecrawl` | remote | Firecrawl | ai-search, testing | FIRECRAWL_API_KEY | `(remote — no install)` |
-| 23 | `fetch` | local | Fetch | web-dev, ai-search | — | `npx -y @modelcontextprotocol/server-fetch` |
-| 24 | `memory` | local | Memory (KG) | data-analysis, ai-search | — | `npx -y @modelcontextprotocol/server-memory` |
-| 25 | `sequential-thinking` | local | Sequential Thinking | data-analysis, ai-search | — | `npx -y @modelcontextprotocol/server-sequential-think` |
-| 26 | `time` | local | Time | productivity, ai-search | — | `npx -y @modelcontextprotocol/server-time` |
+| 23 | `fetch` | local | Fetch | web-dev, ai-search, superapp, testing | — | `uvx mcp-server-fetch` |
+| 24 | `memory` | local | Memory (KG) | data-analysis, ai-search, superapp | — | `npx -y @modelcontextprotocol/server-memory` |
+| 25 | `sequential-thinking` | local | Sequential Thinking | data-analysis, ai-search, superapp | — | `npx -y @modelcontextprotocol/server-sequential-thinking` |
+| 26 | `time` | local | Time | productivity, superapp, testing | — | `uvx mcp-server-time` |
 | 27 | `everything` | local | Everything (test) | testing | — | `npx -y @modelcontextprotocol/server-everything` |
-| 28 | `slack` | local | Slack | productivity | SLACK_BOT_TOKEN, SLACK_TEAM_ID | `npx -y @corail-research/slack-mcp-server` |
+| 28 | `slack` | local | Slack | productivity | SLACK_BOT_TOKEN, SLACK_TEAM_ID | `npx -y @zencoderai/slack-mcp-server` |
 | 29 | `discord` | local | Discord | productivity | DISCORD_TOKEN | `npx -y mcp-discord` |
-| 30 | `linear` | remote | Linear | productivity | OAuth | `(remote — `opencode mcp auth linear`)` |
+| 30 | `linear` | remote | Linear | productivity | OAuth | `` (remote — `opencode mcp auth linear`) `` |
 | 31 | `notion` | local | Notion | productivity | NOTION_API_KEY | `npx -y @notionhq/notion-mcp-server` |
-| 32 | `figma` | remote | Figma | web-dev | OAuth | `(remote — `opencode mcp auth figma`)` |
-| 33 | `stripe` | local | Stripe | web-dev | STRIPE_SECRET_KEY | `npx -y @stripe/mcp-server` |
-| 34 | `vercel` | remote | Vercel | web-dev, devops | OAuth | `(remote — `opencode mcp auth vercel`)` |
-| 35 | `netlify` | local | Netlify | web-dev, devops | NETLIFY_AUTH_TOKEN | `npx -y @netlify/mcp-server@latest` |
-| 36 | `cloudflare` | local | Cloudflare | web-dev, devops | CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID | `npx -y @cloudflare/mcp-server-cloudflare@latest init` |
-| 37 | `aws-docs` | local | AWS Docs | devops | — | `uvx awslabs.aws-docs-mcp-server@latest` |
+| 32 | `figma` | remote | Figma | web-dev | OAuth | `` (remote — `opencode mcp auth figma`) `` |
+| 33 | `stripe` | local | Stripe | — | STRIPE_SECRET_KEY | `npx -y @stripe/mcp` |
+| 34 | `vercel` | remote | Vercel | web-dev | OAuth | `` (remote — `opencode mcp auth vercel`) `` |
+| 35 | `netlify` | local | Netlify | web-dev | NETLIFY_PERSONAL_ACCESS_TOKEN | `npx -y @netlify/mcp` |
+| 36 | `cloudflare` | remote | Cloudflare | devops | OAuth | `` (remote — `opencode mcp auth cloudflare`) `` |
+| 37 | `aws-docs` | local | AWS Docs | devops | — | `uvx awslabs.aws-documentation-mcp-server@latest` |
 | 38 | `azure` | local | Azure | devops | — | `npx -y @azure/mcp@latest server start` |
 | 39 | `docker` | local | Docker | devops | — | `uvx mcp-server-docker` |
 | 40 | `kubernetes` | local | Kubernetes | devops | — | `npx mcp-server-kubernetes` |
 | 41 | `terraform` | local | Terraform | devops | — | `docker pull hashicorp/terraform-mcp-server` |
 | 42 | `digitalocean` | remote | DigitalOcean | devops | DIGITALOCEAN_API_TOKEN | `(remote — no install)` |
-| 43 | `grafana` | local | Grafana | devops | GRAFANA_URL, GRAFANA_API_KEY | `docker pull grafana/mcp-grafana:latest` |
+| 43 | `grafana` | local | Grafana | devops | GRAFANA_URL, GRAFANA_SERVICE_ACCOUNT_TOKEN | `docker pull grafana/mcp-grafana:latest` |
 | 44 | `datadog` | remote | Datadog | devops | DD_API_KEY, DD_APP_KEY | `(remote — no install)` |
-| 45 | `atlassian-jira` | remote | Jira | productivity | OAuth | `(remote — `opencode mcp auth atlassian-jira`)` |
-| 46 | `atlassian-confluence` | remote | Confluence | productivity | OAuth | `(remote — `opencode mcp auth atlassian-confluence`)` |
+| 45 | `atlassian-jira` | remote | Jira | productivity | OAuth | `` (remote — `opencode mcp auth atlassian-jira`) `` |
+| 46 | `atlassian-confluence` | remote | Confluence | productivity | OAuth | `` (remote — `opencode mcp auth atlassian-confluence`) `` |
 | 47 | `google-drive` | local | Google Drive | productivity | GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GDRIVE_CREDS_PATH | `npx -y @modelcontextprotocol/server-gdrive` |
 | 48 | `obsidian` | local | Obsidian | productivity | OBSIDIAN_VAULT_PATH | `npx -y mcp-obsidian` |
 | 49 | `shadcn` | local | shadcn/ui | web-dev | — | `npx shadcn@latest mcp` |
-| 50 | `youtube-transcript` | local | YouTube Transcript | ai-search, productivity | — | `uvx mcp-youtube-transcript` |
+| 50 | `youtube-transcript` | local | YouTube Transcript | ai-search | — | `uvx --with "mcp<2" mcp-youtube-transcript` |
 
 ## Notes
 
 - **filesystem** (local) — Secure scoped file read/write, search and directory listing. The safest default local MCP.  
-  `npx -y @modelcontextprotocol/server-filesystem ${ALLOWED_DIR}` — template `templates/filesystem.json`
+  `npx -y @modelcontextprotocol/server-filesystem .` — template `templates/filesystem.json`
 - **git** (local) — Branch, diff, log, status and commit operations on a local repo.  
   `uvx mcp-server-git` — template `templates/git.json`
 - **github** (local) — Repos, issues, PRs, reviews, CI runs. Highest-token server — enable per-agent.  
@@ -68,19 +68,19 @@ Search: Ctrl+F this file, or run `node scripts/mcp-manager.mjs search <query>`. 
 - **postgres** (local) — Run read-only SQL, inspect schema, explain queries.  
   `npx -y @modelcontextprotocol/server-postgres {env:POSTGRES_CONNECTION_STRING}` — template `templates/postgres.json`
 - **sqlite** (local) — Local .sqlite/.db querying without a server. Great for prototypes.  
-  `uvx mcp-server-sqlite --db-path {env:SQLITE_DB_PATH}` — template `templates/sqlite.json`
+  `uvx --with mcp<2 mcp-server-sqlite --db-path {env:SQLITE_DB_PATH}` — template `templates/sqlite.json`
 - **mysql** (local) — Schema inspection and SELECT queries against MySQL.  
   `npx -y @benborla29/mcp-server-mysql` — template `templates/mysql.json`
 - **mongodb** (local) — List collections, run aggregations, sample documents.  
-  `npx -y mongodb-mcp-server --connectionString {env:MONGODB_URI}` — template `templates/mongodb.json`
+  `npx -y mongodb-mcp-server` — template `templates/mongodb.json`
 - **redis** (local) — Inspect keys, read values, check memory and slowlog.  
-  `npx -y @gongrzhe/server-redis-mcp redis://localhost:6379` — template `templates/redis.json`
+  `npx -y @gongrzhe/server-redis-mcp {env:REDIS_URL}` — template `templates/redis.json`
 - **supabase** (local) — Manage Postgres, auth, storage and edge functions via Supabase API.  
   `npx -y @supabase/mcp-server-supabase@latest --read-only --project-ref={env:SUPABASE_PROJECT_REF}` — template `templates/supabase.json`
 - **prisma** (local) — Prisma-managed Postgres: migrate, query and inspect via Prisma MCP.  
-  `npx -y @prisma/mcp-server` — template `templates/prisma.json`
+  `npx -y prisma@6 mcp` — template `templates/prisma.json`
 - **neon** (remote) — Serverless Postgres branches, branching and SQL via Neon remote MCP.  
-  `https://mcp.neon.tech/sse` — template `templates/neon.json`
+  `https://mcp.neon.tech/mcp` — template `templates/neon.json`
 - **playwright** (local) — Headless browser automation: navigate, click, fill, screenshot, a11y snapshot.  
   `npx @playwright/mcp@latest` — template `templates/playwright.json`
 - **puppeteer** (local) — Lightweight Chrome automation fallback when Playwright is too heavy.  
@@ -94,43 +94,43 @@ Search: Ctrl+F this file, or run `node scripts/mcp-manager.mjs search <query>`. 
 - **gh_grep** (remote) — Regex search across millions of public GitHub repos.  
   `https://mcp.grep.app` — template `templates/gh_grep.json`
 - **brave-search** (local) — Web + local search with rate-limit friendly API.  
-  `npx -y @modelcontextprotocol/server-brave-search` — template `templates/brave-search.json`
+  `npx -y @brave/brave-search-mcp-server` — template `templates/brave-search.json`
 - **tavily** (local) — Answer-engine search + extract, tuned for RAG.  
   `npx -y tavily-mcp@latest` — template `templates/tavily.json`
-- **exa** (remote) — Neural web search + crawl. Remote SSE with API-key header.  
-  `https://mcp.exa.ai/sse` — template `templates/exa.json`
+- **exa** (remote) — Neural web search + crawl. Remote MCP with API-key header.  
+  `https://mcp.exa.ai/mcp` — template `templates/exa.json`
 - **firecrawl** (remote) — Scrape, crawl and extract JS-rendered pages to markdown.  
-  `https://mcp.firecrawl.dev/mcp` — template `templates/firecrawl.json`
+  `https://mcp.firecrawl.dev/v2/mcp` — template `templates/firecrawl.json`
 - **fetch** (local) — Minimal URL -> markdown fetcher. No key, tiny context footprint.  
-  `npx -y @modelcontextprotocol/server-fetch` — template `templates/fetch.json`
+  `uvx mcp-server-fetch` — template `templates/fetch.json`
 - **memory** (local) — Persistent knowledge-graph memory across sessions.  
   `npx -y @modelcontextprotocol/server-memory` — template `templates/memory.json`
 - **sequential-thinking** (local) — Structured step-by-step reasoning tool. Zero config.  
   `npx -y @modelcontextprotocol/server-sequential-thinking` — template `templates/sequential-thinking.json`
 - **time** (local) — Timezone-aware now/convert. Fixes 'what time is it' bugs.  
-  `npx -y @modelcontextprotocol/server-time` — template `templates/time.json`
+  `uvx mcp-server-time` — template `templates/time.json`
 - **everything** (local) — Reference/test server (add, echo, prompts). Use to debug MCP wiring.  
   `npx -y @modelcontextprotocol/server-everything` — template `templates/everything.json`
 - **slack** (local) — Read/post messages, threads, channels.  
-  `npx -y @corail-research/slack-mcp-server` — template `templates/slack.json`
+  `npx -y @zencoderai/slack-mcp-server` — template `templates/slack.json`
 - **discord** (local) — Read/send channel messages, threads.  
   `npx -y mcp-discord` — template `templates/discord.json`
 - **linear** (remote) — Issues, cycles, projects. OAuth remote.  
-  `https://mcp.linear.app/sse` — template `templates/linear.json`
+  `https://mcp.linear.app/mcp` — template `templates/linear.json`
 - **notion** (local) — Pages, databases, comments via official Notion MCP.  
   `npx -y @notionhq/notion-mcp-server` — template `templates/notion.json`
 - **figma** (remote) — Read designs, variables, components (Dev Mode). OAuth remote.  
   `https://mcp.figma.com/mcp` — template `templates/figma.json`
 - **stripe** (local) — Products, prices, invoices, payment links (test-mode safe).  
-  `npx -y @stripe/mcp-server --tools=all` — template `templates/stripe.json`
+  `npx -y @stripe/mcp` — template `templates/stripe.json`
 - **vercel** (remote) — Deployments, domains, logs. OAuth remote.  
   `https://mcp.vercel.com` — template `templates/vercel.json`
 - **netlify** (local) — Sites, deploys, env vars, forms.  
-  `npx -y @netlify/mcp-server@latest` — template `templates/netlify.json`
-- **cloudflare** (local) — Workers, KV, R2, DNS, Pages bindings.  
-  `npx -y @cloudflare/mcp-server-cloudflare@latest init` — template `templates/cloudflare.json`
+  `npx -y @netlify/mcp` — template `templates/netlify.json`
+- **cloudflare** (remote) — Workers, KV, R2, DNS, Pages bindings.  
+  `https://mcp.cloudflare.com/mcp` — template `templates/cloudflare.json`
 - **aws-docs** (local) — Official AWS documentation + CFN guidance (awslabs, uvx).  
-  `uvx awslabs.aws-docs-mcp-server@latest` — template `templates/aws-docs.json`
+  `uvx awslabs.aws-documentation-mcp-server@latest` — template `templates/aws-docs.json`
 - **azure** (local) — Official Azure MCP: azd, resources, logs.  
   `npx -y @azure/mcp@latest server start` — template `templates/azure.json`
 - **docker** (local) — Containers, images, volumes, compose (socket-mounted).  
@@ -139,16 +139,16 @@ Search: Ctrl+F this file, or run `node scripts/mcp-manager.mjs search <query>`. 
   `npx mcp-server-kubernetes` — template `templates/kubernetes.json`
 - **terraform** (local) — Official HashiCorp registry docs + provider lookup (Docker).  
   `docker run -i --rm hashicorp/terraform-mcp-server` — template `templates/terraform.json`
-- **digitalocean** (remote) — Droplets, apps, databases via Gradient remote MCP.  
-  `https://mcp.digitalocean.com/sse` — template `templates/digitalocean.json`
+- **digitalocean** (remote) — App Platform apps via DigitalOcean's remote MCP (other services: https://<service>.mcp.digitalocean.com/mcp).  
+  `https://apps.mcp.digitalocean.com/mcp` — template `templates/digitalocean.json`
 - **grafana** (local) — Dashboards, datasources, incidents, alerts.  
-  `docker run -i --rm -e GRAFANA_URL -e GRAFANA_API_KEY grafana/mcp-grafana:latest` — template `templates/grafana.json`
+  `docker run -i --rm -e GRAFANA_URL -e GRAFANA_SERVICE_ACCOUNT_TOKEN grafana/mcp-grafana:latest -t stdio` — template `templates/grafana.json`
 - **datadog** (remote) — Monitors, logs, APM lookup (API-key header, OAuth disabled).  
-  `https://mcp.datadoghq.com/api/v2/mcp` — template `templates/datadog.json`
+  `https://mcp.datadoghq.com/v1/mcp` — template `templates/datadog.json`
 - **atlassian-jira** (remote) — Atlassian Rovo MCP: search/create/transition Jira issues (OAuth).  
-  `https://mcp.atlassian.com/v1/sse` — template `templates/atlassian-jira.json`
+  `https://mcp.atlassian.com/v2/mcp` — template `templates/atlassian-jira.json`
 - **atlassian-confluence** (remote) — Same Atlassian host as Jira; search/read/update pages (OAuth).  
-  `https://mcp.atlassian.com/v1/sse` — template `templates/atlassian-confluence.json`
+  `https://mcp.atlassian.com/v2/mcp` — template `templates/atlassian-confluence.json`
 - **google-drive** (local) — Docs, sheets, drive search via OAuth credentials file.  
   `npx -y @modelcontextprotocol/server-gdrive` — template `templates/google-drive.json`
 - **obsidian** (local) — Read/append markdown notes in a vault directory.  
@@ -156,4 +156,4 @@ Search: Ctrl+F this file, or run `node scripts/mcp-manager.mjs search <query>`. 
 - **shadcn** (local) — Registry-aware component scaffolding for React + Tailwind.  
   `npx shadcn@latest mcp` — template `templates/shadcn.json`
 - **youtube-transcript** (local) — Fetch captions/transcripts for summarization (uvx, Python).  
-  `uvx mcp-youtube-transcript` — template `templates/youtube-transcript.json`
+  `uvx --with mcp<2 mcp-youtube-transcript` — template `templates/youtube-transcript.json`

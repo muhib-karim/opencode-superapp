@@ -29,6 +29,8 @@
     "list": "node scripts/mcp-manager.mjs list",
     "add": "node scripts/mcp-manager.mjs add",
     "stack": "node scripts/mcp-manager.mjs stack",
-    "validate": "node scripts/validate.mjs"
+    "validate": "node scripts/validate.mjs",
+    "registry:md": "node scripts/gen-registry-md.mjs",
+    "test": "node --test"
   }
 }

@@ -13,9 +13,12 @@ Thanks for helping grow the kit! A new MCP server is a great first PR.
    snippet. Secrets only as `{env:VAR}` placeholders. Key-based remotes get
    `"oauth": false`; OAuth remotes get `"oauth": {}`.
 4. **Join at least one stack** in `stacks/*.json` (or justify a new stack).
-5. **Run `node scripts/validate.mjs`** — must pass (50-entry count will grow; update
-   the count assertion and this README's numbers when you add one).
-6. Update `registry.md` (regenerate), `README.md` counts, and `docs/STACKS.md` if needed.
+5. **Regenerate `registry.md`** with `npm run registry:md` (never hand-edit it).
+6. **Run `node scripts/validate.mjs` and `npm test`** — both must pass. The validator
+   also checks that `stacks/*.json` entries match their templates, that each registry
+   entry's `stacks` matches the stack files, and that `registry.md` is current.
+   (The 50-entry count will grow; update the count assertion in `scripts/validate.mjs`,
+   plus `README.md` counts and `docs/STACKS.md`, when you add one.)
 
 ## Rules
 
@@ -27,7 +30,9 @@ Thanks for helping grow the kit! A new MCP server is a great first PR.
 ## Local dev
 
 ```bash
-node scripts/validate.mjs
+node scripts/validate.mjs        # data checks (same as npm run validate)
+npm test                         # node:test suite in test/ — zero dependencies, no npm install
+npm run registry:md              # regenerate registry.md from registry.json
 node scripts/mcp-manager.mjs list
-node scripts/mcp-manager.mjs stack superapp --config ./test-opencode.json
+node scripts/mcp-manager.mjs stack superapp --config ./test-opencode.json   # gitignored
 ```

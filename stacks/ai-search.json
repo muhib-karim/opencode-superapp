@@ -7,7 +7,7 @@
       "command": [
         "npx",
         "-y",
-        "@modelcontextprotocol/server-brave-search"
+        "@brave/brave-search-mcp-server"
       ],
       "environment": {
         "BRAVE_API_KEY": "{env:BRAVE_API_KEY}"
@@ -28,7 +28,7 @@
     "exa": {
       "enabled": true,
       "type": "remote",
-      "url": "https://mcp.exa.ai/sse",
+      "url": "https://mcp.exa.ai/mcp",
       "headers": {
         "Authorization": "Bearer {env:EXA_API_KEY}"
       },
@@ -37,7 +37,7 @@
     "firecrawl": {
       "enabled": true,
       "type": "remote",
-      "url": "https://mcp.firecrawl.dev/mcp",
+      "url": "https://mcp.firecrawl.dev/v2/mcp",
       "headers": {
         "Authorization": "Bearer {env:FIRECRAWL_API_KEY}"
       },
@@ -47,9 +47,8 @@
       "enabled": true,
       "type": "local",
       "command": [
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-fetch"
+        "uvx",
+        "mcp-server-fetch"
       ]
     },
     "context7": {
@@ -90,6 +89,8 @@
       "type": "local",
       "command": [
         "uvx",
+        "--with",
+        "mcp<2",
         "mcp-youtube-transcript"
       ]
     }

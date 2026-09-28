@@ -4,7 +4,7 @@
     "digitalocean": {
       "enabled": true,
       "type": "remote",
-      "url": "https://mcp.digitalocean.com/sse",
+      "url": "https://apps.mcp.digitalocean.com/mcp",
       "headers": {
         "Authorization": "Bearer {env:DIGITALOCEAN_API_TOKEN}"
       },

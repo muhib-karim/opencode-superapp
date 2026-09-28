@@ -2,12 +2,13 @@
 // Usage:
 //   node scripts/mcp-manager.mjs list [--stack <name>] [--type local|remote] [--json]
 //   node scripts/mcp-manager.mjs search <query>
-//   node scripts/mcp-manager.mjs add <id...> [--config ./opencode.json] [--global] [--env-file .env]
+//   node scripts/mcp-manager.mjs add <id...> [--config ./opencode.json] [--global]
 //   node scripts/mcp-manager.mjs stack <name> [--config ./opencode.json] [--global]
-// Config merge rule: deep-merges `mcp` keys, never deletes existing keys.
+// Config merge rule: merges into `mcp` by id — an id that already exists is replaced by the
+// template (reported as "~ overwrite"); other ids and top-level keys are never touched.
 // Env rule: NEVER writes secret values — only `{env:VAR}` placeholders + prints export hints.
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
+import { resolve, dirname, join, delimiter } from "node:path";
 import { fileURLToPath } from "node:url";
 import { homedir } from "node:os";
 
@@ -15,6 +16,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const KIT = resolve(HERE, "..");
 const REGISTRY = JSON.parse(readFileSync(resolve(KIT, "registry.json"), "utf8"));
 
+const STACKS = "superapp, web-dev, data-analysis, devops, ai-search, productivity, testing";
 const args = process.argv.slice(2);
 const cmd = args[0];
 
@@ -31,12 +33,42 @@ function loadTemplate(id) {
 }
 function targetConfig() {
   if (has("--global")) return resolve(homedir(), ".config", "opencode", "opencode.json");
-  return resolve(flag("--config") || "opencode.json");
+  const cfg = flag("--config");
+  if (cfg === true) { console.error("--config needs a file path (e.g. --config ./opencode.json)"); process.exit(1); }
+  return resolve(cfg || "opencode.json");
 }
 function readConfig(path) {
   if (!existsSync(path)) return { $schema: "https://opencode.ai/config.json", mcp: {} };
   const raw = readFileSync(path, "utf8");
-  try { return JSON.parse(raw); } catch (e) { throw new Error(`Invalid JSON in ${path}: ${e.message}`); }
+  let cfg;
+  try { cfg = JSON.parse(raw); } catch (e) {
+    // leave the user's file untouched; OpenCode also accepts JSONC (comments), which this manager can't merge
+    console.error(`Invalid JSON in ${path}: ${e.message}\nFix it (or remove comments) and re-run; nothing was written.`);
+    process.exit(1);
+  }
+  if (!cfg || typeof cfg !== "object" || Array.isArray(cfg)) {
+    console.error(`${path} must contain a JSON object; nothing was written.`);
+    process.exit(1);
+  }
+  return cfg;
+}
+// local servers need their launcher (npx / uvx / docker) on PATH; warn early instead of failing inside OpenCode
+const RUNTIME_HINTS = {
+  npx: "ships with Node.js >= 18",
+  uvx: "install uv: https://docs.astral.sh/uv/getting-started/installation/",
+  docker: "install Docker and start the daemon",
+};
+function onPath(bin) {
+  const exts = process.platform === "win32" ? (process.env.PATHEXT || ".EXE;.CMD;.BAT").split(";") : [""];
+  return (process.env.PATH || "").split(delimiter).some((d) => d && exts.some((x) => existsSync(join(d, bin + x))));
+}
+function missingRuntimesFor(entries) {
+  const out = new Map();
+  for (const [id, e] of entries) {
+    const bin = e.type === "local" && e.command?.[0];
+    if (bin && !onPath(bin)) out.set(bin, [...(out.get(bin) || []), id]);
+  }
+  return [...out.entries()];
 }
 function missingEnvFor(ids) {
   const out = new Map();
@@ -50,6 +82,8 @@ function missingEnvFor(ids) {
 if (cmd === "list") {
   const stack = flag("--stack");
   const type = flag("--type");
+  if (stack && (stack === true || !existsSync(resolve(KIT, "stacks", `${stack}.json`)))) { console.error(`Unknown stack '${stack === true ? "" : stack}'. Available: ${STACKS}`); process.exit(1); }
+  if (type && !["local", "remote"].includes(type)) { console.error("--type must be local or remote"); process.exit(1); }
   let rows = REGISTRY;
   if (stack) rows = rows.filter((r) => (r.stacks || []).includes(stack));
   if (type) rows = rows.filter((r) => r.type === type);
@@ -58,7 +92,7 @@ if (cmd === "list") {
   for (const r of rows) console.log(`  ${(r.id).padEnd(22)} [${r.type.padEnd(6)}] ${(r.stacks || []).join(",").padEnd(28)} ${r.title} — ${r.description.slice(0, 80)}`);
   console.log(`\nTip: node scripts/mcp-manager.mjs search <query>`);
 } else if (cmd === "search") {
-  const q = (args[1] || "").toLowerCase();
+  const q = args.slice(1).filter((a) => !a.startsWith("--")).join(" ").toLowerCase();
   if (!q) { console.error("Usage: search <query>  (e.g. search postgres)"); process.exit(1); }
   const hits = REGISTRY.filter((r) => [r.id, r.title, r.description, r.category, (r.stacks || []).join(" ")].join(" ").toLowerCase().includes(q));
   if (!hits.length) { console.log(`No matches for '${q}'. Try: node scripts/mcp-manager.mjs list`); process.exit(0); }
@@ -75,13 +109,13 @@ if (cmd === "list") {
 } else if (cmd === "add" || cmd === "stack") {
   let ids;
   if (cmd === "add") {
-    ids = args.slice(1).filter((a) => !a.startsWith("--") && a !== flag("--config"));
+    ids = args.slice(1).filter((a, i) => !a.startsWith("--") && args[i] !== "--config"); // args[i] precedes a
     if (!ids.length) { console.error("Usage: add <id...>  (e.g. add github postgres context7)"); process.exit(1); }
   } else {
-    const name = args[1];
+    const name = args.slice(1).find((a, i) => !a.startsWith("--") && args[i] !== "--config"); // flags may come first
     if (!name) { console.error("Usage: stack <name>  (superapp|web-dev|data-analysis|devops|ai-search|productivity|testing)"); process.exit(1); }
     const p = resolve(KIT, "stacks", `${name}.json`);
-    if (!existsSync(p)) { console.error(`Unknown stack '${name}'. Available: superapp, web-dev, data-analysis, devops, ai-search, productivity, testing`); process.exit(1); }
+    if (!existsSync(p)) { console.error(`Unknown stack '${name}'. Available: ${STACKS}`); process.exit(1); }
     ids = Object.keys(JSON.parse(readFileSync(p, "utf8")).mcp || {});
     console.log(`Stack '${name}' expands to: ${ids.join(", ")}`);
   }
@@ -98,6 +132,7 @@ if (cmd === "list") {
     else console.log(`+ add '${id}' -> ${dest}`);
     cfg.mcp[id] = entry;
   }
+  mkdirSync(dirname(dest), { recursive: true }); // --global on a fresh machine: ~/.config/opencode may not exist yet
   writeFileSync(dest, JSON.stringify(cfg, null, 2) + "\n");
   console.log(`\nWrote ${dest}`);
   const missing = missingEnvFor(ids);
@@ -109,6 +144,11 @@ if (cmd === "list") {
       console.log(isWin ? `    $env:${k}="..."` : `    export ${k}="..."`);
     }
     console.log("\nOpenCode resolves them via \"{env:VAR}\" placeholders (see docs/TROUBLESHOOTING.md).");
+  }
+  const runtimes = missingRuntimesFor(ids.map((id) => [id, cfg.mcp[id]]));
+  if (runtimes.length) {
+    console.log("\nNot found on PATH (these servers will fail to start until installed):");
+    for (const [bin, who] of runtimes) console.log(`  - ${bin}  needed by: ${who.join(", ")}  (${RUNTIME_HINTS[bin] || "see docs/TROUBLESHOOTING.md"})`);
   }
   const oauthIds = ids.filter((id) => { const e = REGISTRY.find((r) => r.id === id); return e?.type === "remote" && e?.oauth !== false && "oauth" in e; });
   if (oauthIds.length) console.log(`\nOAuth next step:\n  ${oauthIds.map((id) => `opencode mcp auth ${id}`).join("\n  ")}`);
