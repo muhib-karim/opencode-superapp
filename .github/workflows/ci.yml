@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate registry, templates and stacks
+        run: npm run validate
+      - name: Unit + CLI tests
+        run: npm test
+      - name: CLI smoke test
+        run: |
+          node scripts/mcp-manager.mjs --help
+          ./install.sh --list > /dev/null
+          ./install.sh --superapp --config "$RUNNER_TEMP/opencode.json"
+          node -e "JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8'))" "$RUNNER_TEMP/opencode.json"

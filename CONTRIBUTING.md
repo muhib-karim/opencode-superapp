@@ -13,8 +13,9 @@ Thanks for helping grow the kit! A new MCP server is a great first PR.
    snippet. Secrets only as `{env:VAR}` placeholders. Key-based remotes get
    `"oauth": false`; OAuth remotes get `"oauth": {}`.
 4. **Join at least one stack** in `stacks/*.json` (or justify a new stack).
-5. **Run `node scripts/validate.mjs`** — must pass (50-entry count will grow; update
-   the count assertion and this README's numbers when you add one).
+5. **Run `npm run validate && npm test`** — both must pass. The validator checks
+   `registry.json` against `schema/registry.schema.json` and measures counts from the
+   files, so there is no hardcoded count to bump.
 6. Update `registry.md` (regenerate), `README.md` counts, and `docs/STACKS.md` if needed.
 
 ## Rules
@@ -27,7 +28,8 @@ Thanks for helping grow the kit! A new MCP server is a great first PR.
 ## Local dev
 
 ```bash
-node scripts/validate.mjs
+npm run validate          # schema + cross-file consistency
+npm test                  # unit + CLI smoke tests (node:test, no dependencies)
 node scripts/mcp-manager.mjs list
 node scripts/mcp-manager.mjs stack superapp --config ./test-opencode.json
 ```

@@ -1,17 +1,17 @@
 {
   "name": "opencode-superapp",
   "version": "1.0.0",
-  "description": "Turn OpenCode into a super-app: 50 curated MCP servers, one-click stacks, zero-dependency installer",
+  "description": "Curated registry of 50 MCP servers, 7 one-command stacks and a zero-dependency installer CLI for OpenCode",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ai-dev-2024/opencode-superapp.git"
+    "url": "https://github.com/muhib-karim/opencode-superapp.git"
   },
   "bugs": {
-    "url": "https://github.com/ai-dev-2024/opencode-superapp/issues"
+    "url": "https://github.com/muhib-karim/opencode-superapp/issues"
   },
-  "homepage": "https://github.com/ai-dev-2024/opencode-superapp#readme",
+  "homepage": "https://github.com/muhib-karim/opencode-superapp#readme",
   "keywords": [
     "opencode",
     "mcp",
@@ -29,6 +29,7 @@
     "list": "node scripts/mcp-manager.mjs list",
     "add": "node scripts/mcp-manager.mjs add",
     "stack": "node scripts/mcp-manager.mjs stack",
-    "validate": "node scripts/validate.mjs"
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test test/*.test.mjs"
   }
 }

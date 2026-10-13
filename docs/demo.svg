@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560" role="img" aria-label="Terminal session: opencode-superapp CLI">
+<rect width="980" height="560" rx="10" fill="#0d1117"/>
+<rect width="980" height="30" rx="10" fill="#161b22"/><rect y="20" width="980" height="10" fill="#161b22"/>
+<circle cx="18" cy="15" r="6" fill="#ff5f56"/><circle cx="38" cy="15" r="6" fill="#ffbd2e"/><circle cx="58" cy="15" r="6" fill="#27c93f"/>
+<text x="490.0" y="20" fill="#8b949e" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle">bash</text>
+<g font-family="Consolas, Menlo, DejaVu Sans Mono, monospace" font-size="14" xml:space="preserve">
+<text x="20" y="56" fill="#7ee787">$ node scripts/mcp-manager.mjs stack superapp</text>
+<text x="20" y="75" fill="#c9d1d9">Stack &#x27;superapp&#x27; expands to: filesystem, memory, sequential-thinking, fetch, time, context7, gh_grep, playwright</text>
+<text x="20" y="94" fill="#79c0ff">+ add &#x27;filesystem&#x27; -&gt; /tmp/my-project/opencode.json</text>
+<text x="20" y="113" fill="#79c0ff">+ add &#x27;memory&#x27; -&gt; /tmp/my-project/opencode.json</text>
+<text x="20" y="132" fill="#79c0ff">+ add &#x27;sequential-thinking&#x27; -&gt; /tmp/my-project/opencode.json</text>
+<text x="20" y="151" fill="#79c0ff">+ add &#x27;fetch&#x27; -&gt; /tmp/my-project/opencode.json</text>
+<text x="20" y="170" fill="#79c0ff">+ add &#x27;time&#x27; -&gt; /tmp/my-project/opencode.json</text>
+<text x="20" y="189" fill="#79c0ff">+ add &#x27;context7&#x27; -&gt; /tmp/my-project/opencode.json</text>
+<text x="20" y="208" fill="#79c0ff">+ add &#x27;gh_grep&#x27; -&gt; /tmp/my-project/opencode.json</text>
+<text x="20" y="227" fill="#79c0ff">+ add &#x27;playwright&#x27; -&gt; /tmp/my-project/opencode.json</text>
+<text x="20" y="246" fill="#c9d1d9"></text>
+<text x="20" y="265" fill="#7ee787">Wrote /tmp/my-project/opencode.json</text>
+<text x="20" y="284" fill="#c9d1d9"></text>
+<text x="20" y="303" fill="#c9d1d9">Verify: opencode mcp list</text>
+<text x="20" y="322" fill="#7ee787">$ node scripts/mcp-manager.mjs search sentry</text>
+<text x="20" y="341" fill="#c9d1d9"></text>
+<text x="20" y="360" fill="#d2a8ff">== sentry [remote] ==</text>
+<text x="20" y="379" fill="#c9d1d9">   Sentry — Query issues, releases, traces. OAuth remote — `opencode mcp auth sentry`.</text>
+<text x="20" y="398" fill="#c9d1d9">   stacks: devops | install: (remote — no install; run `opencode mcp auth sentry`)</text>
+<text x="20" y="417" fill="#c9d1d9">   url: https://mcp.sentry.dev/mcp</text>
+<text x="20" y="436" fill="#c9d1d9"></text>
+<text x="20" y="455" fill="#c9d1d9">Add one: node scripts/mcp-manager.mjs add &lt;id&gt; [--global]</text>
+<text x="20" y="474" fill="#7ee787">$ npm test</text>
+<text x="20" y="493" fill="#c9d1d9"># tests 27</text>
+<text x="20" y="512" fill="#7ee787"># pass 27</text>
+<text x="20" y="531" fill="#8b949e"># fail 0</text>
+</g></svg>
