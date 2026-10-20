@@ -19,7 +19,7 @@ Search: Ctrl+F this file, or run `node scripts/mcp-manager.mjs search <query>`. 
 | 13 | `playwright` | local | Playwright | web-dev, testing | — | `npx @playwright/mcp@latest --install` |
 | 14 | `puppeteer` | local | Puppeteer | web-dev, testing | — | `npx -y @modelcontextprotocol/server-puppeteer` |
 | 15 | `chrome-devtools` | local | Chrome DevTools | web-dev, testing | — | `npx chrome-devtools-mcp@latest` |
-| 16 | `sentry` | remote | Sentry | devops | OAuth | `(remote — no install; run `opencode mcp auth sentry`` |
+| 16 | `sentry` | remote | Sentry | devops | OAuth | (remote — no install; run `opencode mcp auth sentry`) |
 | 17 | `context7` | remote | Context7 | web-dev, ai-search | OAuth | `(remote — no install)` |
 | 18 | `gh_grep` | remote | Grep by Vercel | web-dev, ai-search | OAuth | `(remote — no install)` |
 | 19 | `brave-search` | local | Brave Search | ai-search | BRAVE_API_KEY | `npx -y @modelcontextprotocol/server-brave-search` |
@@ -28,16 +28,16 @@ Search: Ctrl+F this file, or run `node scripts/mcp-manager.mjs search <query>`. 
 | 22 | `firecrawl` | remote | Firecrawl | ai-search, testing | FIRECRAWL_API_KEY | `(remote — no install)` |
 | 23 | `fetch` | local | Fetch | web-dev, ai-search | — | `npx -y @modelcontextprotocol/server-fetch` |
 | 24 | `memory` | local | Memory (KG) | data-analysis, ai-search | — | `npx -y @modelcontextprotocol/server-memory` |
-| 25 | `sequential-thinking` | local | Sequential Thinking | data-analysis, ai-search | — | `npx -y @modelcontextprotocol/server-sequential-think` |
+| 25 | `sequential-thinking` | local | Sequential Thinking | data-analysis, ai-search | — | `npx -y @modelcontextprotocol/server-sequential-thinking` |
 | 26 | `time` | local | Time | productivity, ai-search | — | `npx -y @modelcontextprotocol/server-time` |
 | 27 | `everything` | local | Everything (test) | testing | — | `npx -y @modelcontextprotocol/server-everything` |
 | 28 | `slack` | local | Slack | productivity | SLACK_BOT_TOKEN, SLACK_TEAM_ID | `npx -y @corail-research/slack-mcp-server` |
 | 29 | `discord` | local | Discord | productivity | DISCORD_TOKEN | `npx -y mcp-discord` |
-| 30 | `linear` | remote | Linear | productivity | OAuth | `(remote — `opencode mcp auth linear`)` |
+| 30 | `linear` | remote | Linear | productivity | OAuth | (remote — `opencode mcp auth linear`) |
 | 31 | `notion` | local | Notion | productivity | NOTION_API_KEY | `npx -y @notionhq/notion-mcp-server` |
-| 32 | `figma` | remote | Figma | web-dev | OAuth | `(remote — `opencode mcp auth figma`)` |
+| 32 | `figma` | remote | Figma | web-dev | OAuth | (remote — `opencode mcp auth figma`) |
 | 33 | `stripe` | local | Stripe | web-dev | STRIPE_SECRET_KEY | `npx -y @stripe/mcp-server` |
-| 34 | `vercel` | remote | Vercel | web-dev, devops | OAuth | `(remote — `opencode mcp auth vercel`)` |
+| 34 | `vercel` | remote | Vercel | web-dev, devops | OAuth | (remote — `opencode mcp auth vercel`) |
 | 35 | `netlify` | local | Netlify | web-dev, devops | NETLIFY_AUTH_TOKEN | `npx -y @netlify/mcp-server@latest` |
 | 36 | `cloudflare` | local | Cloudflare | web-dev, devops | CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID | `npx -y @cloudflare/mcp-server-cloudflare@latest init` |
 | 37 | `aws-docs` | local | AWS Docs | devops | — | `uvx awslabs.aws-docs-mcp-server@latest` |
@@ -48,8 +48,8 @@ Search: Ctrl+F this file, or run `node scripts/mcp-manager.mjs search <query>`. 
 | 42 | `digitalocean` | remote | DigitalOcean | devops | DIGITALOCEAN_API_TOKEN | `(remote — no install)` |
 | 43 | `grafana` | local | Grafana | devops | GRAFANA_URL, GRAFANA_API_KEY | `docker pull grafana/mcp-grafana:latest` |
 | 44 | `datadog` | remote | Datadog | devops | DD_API_KEY, DD_APP_KEY | `(remote — no install)` |
-| 45 | `atlassian-jira` | remote | Jira | productivity | OAuth | `(remote — `opencode mcp auth atlassian-jira`)` |
-| 46 | `atlassian-confluence` | remote | Confluence | productivity | OAuth | `(remote — `opencode mcp auth atlassian-confluence`)` |
+| 45 | `atlassian-jira` | remote | Jira | productivity | OAuth | (remote — `opencode mcp auth atlassian-jira`) |
+| 46 | `atlassian-confluence` | remote | Confluence | productivity | OAuth | (remote — `opencode mcp auth atlassian-confluence`) |
 | 47 | `google-drive` | local | Google Drive | productivity | GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GDRIVE_CREDS_PATH | `npx -y @modelcontextprotocol/server-gdrive` |
 | 48 | `obsidian` | local | Obsidian | productivity | OBSIDIAN_VAULT_PATH | `npx -y mcp-obsidian` |
 | 49 | `shadcn` | local | shadcn/ui | web-dev | — | `npx shadcn@latest mcp` |
