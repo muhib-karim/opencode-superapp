@@ -1,4 +1,4 @@
-# Registry — 50 MCP servers
+# Registry — 51 MCP servers
 
 <!-- Generated from registry.json by scripts/gen-registry-md.mjs. Do not edit by hand: run `npm run gen:registry`. -->
 
@@ -56,6 +56,7 @@ Search: Ctrl+F this file, or run `node scripts/mcp-manager.mjs search <query>`. 
 | 48 | `obsidian` | local | Obsidian | productivity | OBSIDIAN_VAULT_PATH | `npx -y mcp-obsidian` |
 | 49 | `shadcn` | local | shadcn/ui | web-dev | — | `npx -y shadcn@latest mcp` |
 | 50 | `youtube-transcript` | local | YouTube Transcript | ai-search | — | `uvx mcp-youtube-transcript` |
+| 51 | `floo` | remote | floo | — | OAuth | (remote — `opencode mcp auth floo`) |
 
 ## Notes
 
@@ -159,3 +160,5 @@ Search: Ctrl+F this file, or run `node scripts/mcp-manager.mjs search <query>`. 
   `npx -y shadcn@latest mcp` — template `templates/shadcn.json`
 - **youtube-transcript** (local) — Fetch captions/transcripts for summarization (uvx, Python).  
   `uvx mcp-youtube-transcript` — template `templates/youtube-transcript.json`
+- **floo** (remote) — Deploy and host applications, inspect deploy status, and read app logs on floo.  
+  `https://api.getfloo.com/mcp` — template `templates/floo.json`
