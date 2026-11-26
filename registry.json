@@ -1211,5 +1211,18 @@
     "envVars": [],
     "toolsPrefix": "youtube-transcript_*",
     "install": "uvx mcp-youtube-transcript"
+  },
+  {
+    "id": "floo",
+    "title": "floo",
+    "description": "Deploy and host applications, inspect deploy status, and read app logs on floo.",
+    "type": "remote",
+    "category": "Cloud",
+    "stacks": [],
+    "url": "https://api.getfloo.com/mcp",
+    "oauth": {},
+    "envVars": [],
+    "toolsPrefix": "floo_*",
+    "install": "(remote \u2014 `opencode mcp auth floo`)"
   }
 ]

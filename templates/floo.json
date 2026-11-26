@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "floo": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://api.getfloo.com/mcp",
+      "oauth": {}
+    }
+  }
+}
